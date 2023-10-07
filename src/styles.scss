@@ -17,6 +17,10 @@ body {
 	width: 50vw;
 }
 
+.w100{
+	width: 100%;
+}
+
 @media (max-width: 768px) {
 	.main-content-container{
 		flex-direction: column;

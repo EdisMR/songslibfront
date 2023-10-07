@@ -14,9 +14,24 @@ export class SongComponent {
 
   song: songInterface = {} as songInterface
 
+  updateNowSongInfo(){
+    this._songSvc.updateSong(this.song)
+  }
+
   private songInfo = this._songSvc.song$
     .subscribe((song) => {
       this.song = song
+      console.clear()
+      console.table(this.song)
     })
 
+  updatedSongInfo(songInfo: songInterface) {
+    this.song = songInfo
+    this.updateNowSongInfo()
+  }
+
+  updatedTags(tags: string[]) {
+    this.song.categories = tags
+    this.updateNowSongInfo()
+  }
 }

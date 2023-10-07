@@ -2,29 +2,49 @@
 	<section class="main-content">
 
 
-		<div class="songInfoFormContainer">
-			<app-song-info-form [songInfo]="song"></app-song-info-form>
+		<div class="songInfoFormContainer"><!-- Hide for clients -->
+			<app-song-info-form
+			[songInfoInput]="song"
+			(songInfoUpdated)="updatedSongInfo($event)"
+			></app-song-info-form>
 		</div>
 
 		<div class="songInfoDisplayer">
 			<div class="songInfoDisplayer__title">
-				<h1>Titulo: <span></span></h1>
+				<h1>Titulo: <span>{{song.title}}</span></h1>
 			</div>
 			<div class="songInfoDisplayer__artist">
-				<h1>Artista: <span></span></h1>
+				<h1>Artista: <span>{{song.artist}}</span></h1>
 			</div>
 			<div class="songInfoDisplayer__tempo">
-				<h1>Tempo: <span></span></h1>
+				<h1>Tempo: <span>{{song.tempo}}bpm</span></h1>
 			</div>
 		</div>
 
-		<section class="tags">
+		<section class="tagsContainer">
 			<div>
 				<strong>Categorias</strong>
 			</div>
 
-			<div class="tagsFormContainer">
-				<app-categories-form [categories]="song.categories"></app-categories-form>
+			<div class="tagsFormContainer"><!-- Hide for clients -->
+				<app-categories-form
+				[fruits]="song.categories"
+				(tagsUpdated)="updatedTags($event)"
+				></app-categories-form>
+			</div>
+			<div class="tagsList"><!-- NGFOR -->
+				<div class="tagsList__item">
+					<mat-chip>Orange</mat-chip>
+				</div>
+				<div class="tagsList__item">
+					<mat-chip>Orange</mat-chip>
+				</div>
+				<div class="tagsList__item">
+					<mat-chip>Orange</mat-chip>
+				</div>
+				<div class="tagsList__item">
+					<mat-chip>Orange</mat-chip>
+				</div>
 			</div>
 
 		</section>

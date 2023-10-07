@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Component, ElementRef, OnInit, ViewChild, inject, Input } from '@angular/core';
+import { Component, ElementRef, EventEmitter, inject, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Observable, map, startWith } from 'rxjs';
@@ -12,12 +12,11 @@ import { Observable, map, startWith } from 'rxjs';
 export class CategoriesFormComponent implements OnInit {
   fruitCtrl = new FormControl('');
   filteredFruits: Observable<string[]>;
-  fruits: string[] = ['Lemon'];
   allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
 
   @ViewChild('fruitInput', { read: ElementRef }) fruitInput: ElementRef<HTMLInputElement> = inject(ElementRef);
-  @Input() categories: string[] = []
-
+  @Input() fruits: string[] = []
+  @Output() tagsUpdated = new EventEmitter<string[]>()
 
   announcer = inject(LiveAnnouncer);
 
@@ -35,6 +34,7 @@ export class CategoriesFormComponent implements OnInit {
       this.fruits.splice(index, 1);
       this.announcer.announce(`Removed ${fruit}`);
     }
+    this.emitUpdatedData()
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
@@ -45,12 +45,16 @@ export class CategoriesFormComponent implements OnInit {
     this.fruits.push(event.option.viewValue);
     this.fruitInput.nativeElement.value = '';
     this.fruitCtrl.setValue(null);
-
+    this.emitUpdatedData()
   }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
     return this.allFruits.filter(fruit => fruit.toLowerCase().includes(filterValue));
+  }
+
+  emitUpdatedData() {
+    this.tagsUpdated.emit(this.fruits)
   }
 
   ngOnInit(): void {
