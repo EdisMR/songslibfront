@@ -1,1 +1,35 @@
-<p>song works!</p>
+<section class="main-content-container">
+	<section class="main-content">
+
+
+		<div class="songInfoFormContainer">
+			<app-song-info-form [songInfo]="song"></app-song-info-form>
+		</div>
+
+		<div class="songInfoDisplayer">
+			<div class="songInfoDisplayer__title">
+				<h1>Titulo: <span></span></h1>
+			</div>
+			<div class="songInfoDisplayer__artist">
+				<h1>Artista: <span></span></h1>
+			</div>
+			<div class="songInfoDisplayer__tempo">
+				<h1>Tempo: <span></span></h1>
+			</div>
+		</div>
+
+		<section class="tags">
+			<div>
+				<strong>Categorias</strong>
+			</div>
+
+			<div class="tagsFormContainer">
+				<app-categories-form [categories]="song.categories"></app-categories-form>
+			</div>
+
+		</section>
+
+
+	</section>
+	<!-- <section class="main-content-2"></section> -->
+</section>

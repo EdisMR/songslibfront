@@ -1,4 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+html,
+body {
+	height: 100%;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+	margin: 0;
+	font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.main-content-container{
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.main-content{
+	width: 50vw;
+}
+
+@media (max-width: 768px) {
+	.main-content-container{
+		flex-direction: column;
+	}
+	.main-content{
+		width: 100vw;
+	}
+}
