@@ -21,8 +21,6 @@ export class SongComponent implements OnDestroy {
   private songInfo = this._songSvc.song$
     .subscribe((song) => {
       this.song = song
-      console.clear()
-      console.table(this.song)
     })
 
     public get audiosList() {
@@ -54,6 +52,11 @@ export class SongComponent implements OnDestroy {
 
   updatedTags(tags: string[]) {
     this.song.categories = tags
+    this.updateNowSongInfo()
+  }
+
+  updatedLyrics(lyrics: string) {
+    this.song.lyric = lyrics
     this.updateNowSongInfo()
   }
 

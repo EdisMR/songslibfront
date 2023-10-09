@@ -69,6 +69,10 @@
 
 		</section>
 
+		<section class="lyric-area">
+			<app-lyrics [lyricsInput]="song.lyric" (lyricsChange)="updatedLyrics($event)"></app-lyrics>
+		</section>
+
 
 	</section>
 	<!-- <section class="main-content-2"></section> -->

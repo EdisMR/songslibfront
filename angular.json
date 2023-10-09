@@ -53,9 +53,13 @@
             ],
             "styles": [
               "@angular/material/prebuilt-themes/deeppurple-amber.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/assets/css/quill.snow.css",
+              "src/assets/css/quill.bubble.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/quill.min.js"
+            ]
           },
           "configurations": {
             "production": {
