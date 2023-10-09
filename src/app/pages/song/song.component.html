@@ -3,10 +3,7 @@
 
 
 		<div class="songInfoFormContainer"><!-- Hide for clients -->
-			<app-song-info-form
-			[songInfoInput]="song"
-			(songInfoUpdated)="updatedSongInfo($event)"
-			></app-song-info-form>
+			<app-song-info-form [songInfoInput]="song" (songInfoUpdated)="updatedSongInfo($event)"></app-song-info-form>
 		</div>
 
 		<div class="songInfoDisplayer">
@@ -27,10 +24,8 @@
 			</div>
 
 			<div class="tagsFormContainer"><!-- Hide for clients -->
-				<app-categories-form
-				[fruits]="song.categories"
-				(tagsUpdated)="updatedTags($event)"
-				></app-categories-form>
+				<app-categories-form [fruits]="song.categories"
+					(tagsUpdated)="updatedTags($event)"></app-categories-form>
 			</div>
 			<div class="tagsList"><!-- NGFOR -->
 				<div class="tagsList__item">
@@ -46,6 +41,31 @@
 					<mat-chip>Orange</mat-chip>
 				</div>
 			</div>
+
+		</section>
+
+		<section class="audios"> <!-- Hide if not files available -->
+			<mat-list>
+				<ng-container><!-- Hide if Not audios available -->
+					<div mat-subheader>Audios</div>
+					<mat-list-item *ngFor="let folder of audiosList" matRipple>
+						<mat-icon matListItemIcon>library_music</mat-icon>
+						<div matListItemTitle>
+							<a [href]="staticFilesDir+folder" target="_blank">{{folder}}</a>
+						</div>
+					</mat-list-item>
+				</ng-container>
+				<ng-container><!-- Hide if Not Files available -->
+					<mat-divider></mat-divider>
+					<div mat-subheader>Descargables</div>
+					<mat-list-item *ngFor="let file of otherFilesList" matRipple>
+						<mat-icon matListItemIcon>attachment</mat-icon>
+						<div matListItemTitle>
+							<a [href]="staticFilesDir+file" [download]="file">{{file}}</a>
+						</div>
+					</mat-list-item>
+				</ng-container>
+			</mat-list>
 
 		</section>
 

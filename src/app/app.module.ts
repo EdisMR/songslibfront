@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -10,14 +11,16 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CategoriesFormComponent } from './components/categories-form/categories-form.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { SongInfoFormComponent } from './components/song-info-form/song-info-form.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { SongComponent } from './pages/song/song.component';
 import { UsersListComponent } from './pages/users-list/users-list.component';
-import { SongInfoFormComponent } from './components/song-info-form/song-info-form.component';
-import { CategoriesFormComponent } from './components/categories-form/categories-form.component';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import {MatRippleModule} from '@angular/material/core';
+
+
 
 const MaterialImports = [
   MatToolbarModule,
@@ -25,7 +28,8 @@ const MaterialImports = [
   MatInputModule,
   MatChipsModule,
   MatIconModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatRippleModule
 ]
 @NgModule({
   declarations: [
