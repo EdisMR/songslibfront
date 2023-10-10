@@ -7,7 +7,7 @@
 		<mat-card class="card" mat-ripple [routerLink]="['','song',song.public_id]">
 			<mat-card-header>
 				<mat-card-title>
-					<span>{{song.title}}</span>
+					<span class="song-title">{{song.title}}</span>
 				</mat-card-title>
 			</mat-card-header>
 			<mat-card-actions>
@@ -21,4 +21,10 @@
 			</mat-card-actions>
 		</mat-card>
 	</ng-container>
+</section>
+
+<section class="donation-area">
+	<a href="#" target="_blank" class="donation-link">
+		<span>Donación</span>
+	</a>
 </section>

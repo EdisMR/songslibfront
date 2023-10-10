@@ -5,6 +5,17 @@
 	//considering header (64px), footer (64px) and paddings
 }
 
+.footer{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
+.github-link a{
+	color: white !important;
+}
+
 @media screen and (max-width:600px) {
 	.app-router {
 		padding-top: 20px;

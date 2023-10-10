@@ -25,8 +25,7 @@
 				<strong>Categorias</strong>
 			</div>
 			<div class="tagsFormContainer"><!-- Hide for clients -->
-				<app-categories-form [fruits]="song.categories"
-					(tagsUpdated)="updatedTags($event)"></app-categories-form>
+				<app-categories-form [fruits]="song.categories" (tagsUpdated)="updatedTags($event)"></app-categories-form>
 			</div>
 			<div class="tagsList"><!-- NGFOR -->
 				<div class="tagsList__item">
@@ -75,10 +74,7 @@
 
 	</section>
 	<section class="main-content-2">
-		<app-admin-controls-song
-		[songInput]="song"
-		(songAdminUpdatesEmmiter)="updatedSong($event)"
-		(songRequestDeletion)="adminRequireDeletion()"
-		></app-admin-controls-song>
+		<app-admin-controls-song [songInput]="song" (songAdminUpdatesEmmiter)="updatedSong($event)"
+			(songRequestDeletion)="adminRequireDeletion()"></app-admin-controls-song>
 	</section>
 </section>

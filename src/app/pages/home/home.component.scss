@@ -1,34 +1,80 @@
-.songs-list{
+.songs-list {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: center;
+	justify-content: space-evenly;
 	align-items: center;
 }
 
-.card{
+.card {
 	border: 1px solid #ccc;
-	border-radius: 20px;
+	border-radius: 15px;
 	margin: 10px;
 	max-width: 330px;
+	scale: 1;
+	transition: all .2s;
+	&:active {
+		scale: 0.95;
+	}
 }
 
-.categories-container{
+.song-title {
+	color: #7b5aa0;
+}
+
+.categories-container {
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
 	flex-wrap: wrap;
 }
 
-.category{
+.category {
 	margin: 5px;
 }
 
-@media screen and (max-width:600px){
-	.card{
+.donation-area {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 200px;
+}
+
+.donation-link {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 30px;
+	font-weight: bold;
+	padding: 30px 40px;
+	background-color: #ffd54f;
+	background-image: linear-gradient(45deg, #673ab7, transparent, #673ab7);
+	background-size: 70vw;
+	background-position: top left;
+	color: aliceblue !important;
+	border-radius: 20px;
+	transition: all .2s;
+	scale: 1;
+
+	&:hover,
+	&:active {
+		background-position: center center;
+	}
+
+	&:active {
+		scale: 0.95;
+	}
+}
+
+@media screen and (max-width:600px) {
+	.card {
 		max-width: unset;
 		width: 98vw;
 		margin: 0;
 		margin-top: 10px;
 		margin-bottom: 10px;
+	}
+
+	.donation-link {
+		background-size: 70vh;
 	}
 }
