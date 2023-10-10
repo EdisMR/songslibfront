@@ -1,4 +1,5 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
+import { BehaviorSubject, Subscription, debounceTime } from 'rxjs';
 
 declare var Quill: any;
 
@@ -8,20 +9,26 @@ declare var Quill: any;
   styleUrls: ['./lyrics.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LyricsComponent implements AfterViewInit {
+export class LyricsComponent implements AfterViewInit, OnDestroy {
   @ViewChild('editor', { read: ElementRef }) editor!: ElementRef;
 
-  constructor() {}
+  constructor() { }
 
-  lyrics: string = '';
-  @Input() set lyricsInput(value: string) {
-    let decodedValue = decodeURIComponent(value);
-    this.lyrics = decodedValue;
+  private lyrics: {
+    encoded: string;
+    decoded: string
+  } = {
+      encoded: '',
+      decoded: ''
+    }
+  @Input() set lyricsInput(encodedValue: string) {
+    this.lyrics.encoded = encodedValue
+    this.lyrics.decoded = decodeURIComponent(encodedValue);
   }
   @Output() lyricsChange = new EventEmitter<string>();
 
   private QuillEditor: any;
-  QuillOptions:any = {
+  QuillOptions: any = {
     admin: {
       theme: 'snow',
       placeholder: 'Letras y acordes...',
@@ -38,25 +45,42 @@ export class LyricsComponent implements AfterViewInit {
     }
   }
 
-  updateLyrics(): void {
-    let lyricText = this.QuillEditor.getContents().ops[0].insert;
-    this.lyrics = encodeURIComponent(lyricText);
-    this.lyricsChange.emit(this.lyrics);
-  }
 
+  private updateSubject: BehaviorSubject<{}> = new BehaviorSubject({})
+  private updateSubscription: Subscription = this.updateSubject
+    .pipe(debounceTime(1200))
+    .subscribe(({ }) => {
+      this.lyrics.decoded = this.QuillEditor.getContents().ops[0].insert;
+      this.lyrics.encoded = encodeURIComponent(this.lyrics.decoded);
+      this.lyricsChange.emit(this.lyrics.encoded);
+      console.log(this.lyrics.decoded)
+    })
 
   private instanciateQuillAdmin(): void {
-    /* user */
-    //this.QuillEditor = new Quill(this.editor.nativeElement, this.QuillOptions.user);
-    
-    /* admin */
-    this.QuillEditor = new Quill(this.editor.nativeElement, this.QuillOptions.admin);
+    let isAdmin: boolean = true;
 
-    this.QuillEditor.setText(decodeURIComponent(this.lyrics));
+    if (!isAdmin) {
+      this.QuillEditor = new Quill(this.editor.nativeElement, this.QuillOptions.user);
+      this.updateSubscription.unsubscribe()
+    } else {
+      this.QuillEditor = new Quill(this.editor.nativeElement, this.QuillOptions.admin);
+    }
+
+    this.QuillEditor.setText(decodeURIComponent(this.lyrics.decoded));
+
+    if (isAdmin) {
+      this.QuillEditor.on('text-change', () => {
+        this.updateSubject.next({})
+      })
+    }
   }
 
   ngAfterViewInit(): void {
     this.instanciateQuillAdmin();
+  }
+
+  ngOnDestroy(): void {
+    this.updateSubscription?.unsubscribe()
   }
 
 }
