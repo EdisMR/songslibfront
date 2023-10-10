@@ -1,15 +1,17 @@
-.searchbar{
-	display: flex;
-	justify-content: center;
-	align-items: center;
+.searchbar {
 	background-color: #4a4a4a;
 	padding: 20px 5px;
 }
 
+.searchbar-content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 
-
-
-
+.results-search-from {
+	text-align: center;
+}
 
 
 .songs-list {
@@ -23,15 +25,16 @@
 	border: 1px solid rgb(255 255 255 / 26%);
 	border-radius: 15px;
 	margin: 10px;
-	max-width: 330px;
+	max-width: 400px;
 	scale: 1;
 	transition: all .2s;
+
 	&:active {
 		scale: 0.95;
 	}
 }
 
-.song-title{
+.song-title {
 	height: 70px;
 }
 

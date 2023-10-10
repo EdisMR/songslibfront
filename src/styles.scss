@@ -47,6 +47,10 @@ a {
 	color: mat.get-color-from-palette($accent);
 }
 
+.link-cursor {
+	cursor: pointer;
+}
+
 @media (max-width: 768px) {
 	.main-content-container {
 		justify-content: center;
