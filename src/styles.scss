@@ -1,6 +1,26 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$dark: mat.define-palette(mat.$indigo-palette, 500);
+$accent: mat.define-palette(mat.$amber-palette, A200, A100, A400);
+$warn: mat.define-palette(mat.$red-palette);
+
+$theme:mat.define-dark-theme((
+		color: (
+			primary: $dark,
+			accent: $accent,
+			warn: $warn
+		)
+));
+
+@include mat.all-component-themes($theme);
+
 html,
 body {
 	height: 100%;
+	background-color: #333;
+	color: #eee;
 }
 
 body {
@@ -8,30 +28,32 @@ body {
 	font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.main-content-container{
+.main-content-container {
 	display: flex;
 	justify-content: space-evenly;
 	flex-wrap: wrap;
 }
 
-.main-content{
+.main-content {
 	width: 50vw;
 }
 
-.w100{
+.w100 {
 	width: 100%;
 }
 
-a{
+a {
 	text-decoration: none;
+	color: mat.get-color-from-palette($accent);
 }
 
 @media (max-width: 768px) {
-	.main-content-container{
+	.main-content-container {
 		justify-content: center;
 		align-items: center;
 	}
-	.main-content{
+
+	.main-content {
 		width: 94vw;
 	}
 }

@@ -56,7 +56,7 @@ export class LyricsComponent implements AfterViewInit, OnDestroy {
     })
 
   private instanciateQuillAdmin(): void {
-    let isAdmin: boolean = false;
+    let isAdmin: boolean = true;
 
     if (!isAdmin) {
       this.QuillEditor = new Quill(this.editor.nativeElement, this.QuillOptions.user);

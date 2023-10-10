@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { categoriesListEnv } from 'src/app/environment/environment';
+import { categoriesInterface } from 'src/app/interfaces/categories.interface';
 import { songInterface } from 'src/app/interfaces/song.interface';
 import { SongService } from 'src/app/services/song.service';
 
@@ -13,5 +15,7 @@ export class HomeComponent {
       this.songsList=data
     })
   }
+
+  public categories:categoriesInterface=categoriesListEnv
   songsList:songInterface[]=[]
 }

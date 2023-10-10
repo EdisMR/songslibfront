@@ -1,21 +1,85 @@
-<mat-toolbar color="primary">
-    <span>Cantoral Virtual</span>
-</mat-toolbar>
+<div class="searchbar">
+	<form class="example-form">
+		<mat-form-field class="example-full-width">
+			<mat-label>Buscar</mat-label>
+			<input type="text" matInput>
+			<mat-icon matSuffix>search</mat-icon>
+		</mat-form-field>
+	</form>
+	<button mat-button [matMenuTriggerFor]="category">Categoría</button>
+	<mat-menu #category="matMenu">
+		<button mat-menu-item [matMenuTriggerFor]="misa">Misa</button>
+		<button mat-menu-item [matMenuTriggerFor]="tiemLit">Tiempo Litúrgico</button>
+		<button mat-menu-item [matMenuTriggerFor]="sacramentos">Sacramentos</button>
+		<button mat-menu-item [matMenuTriggerFor]="santos">Santos</button>
+	</mat-menu>
+
+	<mat-menu #misa="matMenu">
+		<button mat-menu-item>entrada</button>
+		<button mat-menu-item>ten piedad</button>
+		<button mat-menu-item>gloria</button>
+		<button mat-menu-item>aleluya</button>
+		<button mat-menu-item>ofrendas</button>
+		<button mat-menu-item>santo</button>
+		<button mat-menu-item>cordero</button>
+		<button mat-menu-item>comunion (eucaristia)</button>
+		<button mat-menu-item>envío (salida)</button>
+	</mat-menu>
+
+	<mat-menu #tiemLit="matMenu">
+		<button mat-menu-item>adviento</button>
+		<button mat-menu-item>navidad</button>
+		<button mat-menu-item>epifania</button>
+		<button mat-menu-item>tiempo ordinario</button>
+		<button mat-menu-item>cuaresma</button>
+		<button mat-menu-item>domingo de ramos</button>
+		<button mat-menu-item>jueves santo</button>
+		<button mat-menu-item>viernes santo</button>
+		<button mat-menu-item>vigilia pascual</button>
+		<button mat-menu-item>sabado santo</button>
+		<button mat-menu-item>domingo santo</button>
+		<button mat-menu-item>resurreccion de jesus</button>
+		<button mat-menu-item>semana santa</button>
+		<button mat-menu-item>pascua</button>
+		<button mat-menu-item>cuarto domingo de pascua</button>
+		<button mat-menu-item>setimo domingo de pascua</button>
+		<button mat-menu-item>pentecostes</button>
+		<button mat-menu-item>cristo rey</button>
+	</mat-menu>
+
+	<mat-menu #sacramentos="matMenu">
+		<button mat-menu-item>bautismo</button>
+		<button mat-menu-item>confirmación</button>
+		<button mat-menu-item>eucaristia</button>
+		<button mat-menu-item>penitencia</button>
+		<button mat-menu-item>uncion de los enfermos</button>
+		<button mat-menu-item>orden sacerdotal</button>
+		<button mat-menu-item>matrimonio</button>
+	</mat-menu>
+
+	<mat-menu #santos="matMenu">
+		<button mat-menu-item>maria madre de dios</button>
+		<button mat-menu-item>maria</button>
+		<button mat-menu-item>jesus</button>
+		<button mat-menu-item>ssma trinidad</button>
+		<button mat-menu-item>espiritu santo</button>
+	</mat-menu>
+</div>
 
 <section class="songs-list">
 	<ng-container *ngFor="let song of songsList">
-		<mat-card class="card" mat-ripple [routerLink]="['','song',song.public_id]">
-			<mat-card-header>
-				<mat-card-title>
-					<span class="song-title">{{song.title}}</span>
+		<mat-card class="card" mat-ripple>
+			<mat-card-header [routerLink]="['','song',song.public_id]">
+				<mat-card-title class="song-title">
+					<span>{{song.title}}</span>
 				</mat-card-title>
 			</mat-card-header>
 			<mat-card-actions>
 				<div class="categories-container">
-				<ng-container *ngFor="let tag of song.categories">
-					<div class="category">
-						<mat-chip>{{tag}}</mat-chip>
-					</div>
+					<ng-container *ngFor="let tag of song.categories">
+						<div class="category">
+							<mat-chip>{{tag}}</mat-chip>
+						</div>
 					</ng-container>
 				</div>
 			</mat-card-actions>
