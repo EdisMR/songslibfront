@@ -1,3 +1,6 @@
+<mat-toolbar color="primary">
+	<span routerLink="">Cantoral Virtual</span>
+</mat-toolbar>
 <section class="main-content-container">
 	<section class="main-content">
 
@@ -25,7 +28,8 @@
 				<strong>Categorias</strong>
 			</div>
 			<div class="tagsFormContainer"><!-- Hide for clients -->
-				<app-categories-form [fruits]="song.categories" (tagsUpdated)="updatedTags($event)"></app-categories-form>
+				<app-categories-form [fruits]="song.categories"
+					(tagsUpdated)="updatedTags($event)"></app-categories-form>
 			</div>
 			<div class="tagsList"><!-- NGFOR -->
 				<div class="tagsList__item">

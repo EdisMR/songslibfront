@@ -1,8 +1,5 @@
 .app-router {
-	padding-top: 50px;
-	padding-bottom: 50px;
-	min-height: calc(100vh - 228px);
-	//considering header (64px), footer (64px) and paddings
+	min-height: calc(100vh - 50px);
 }
 
 .footer{
@@ -14,12 +11,4 @@
 
 .github-link a{
 	color: white !important;
-}
-
-@media screen and (max-width:600px) {
-	.app-router {
-		padding-top: 20px;
-		padding-bottom: 20px;
-		min-height: calc(100vh - 152px);
-	}
 }
