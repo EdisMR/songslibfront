@@ -3,26 +3,27 @@
 
 
 		<div class="songInfoFormContainer"><!-- Hide for clients -->
-			<app-song-info-form [songInfoInput]="song" (songInfoUpdated)="updatedSongInfo($event)"></app-song-info-form>
+			<app-song-info-form [songInfoInput]="song" (songInfoUpdated)="updatedSong($event)"></app-song-info-form>
 		</div>
 
 		<div class="songInfoDisplayer">
-			<div class="songInfoDisplayer__title">
-				<h1>Titulo: <span>{{song.title}}</span></h1>
-			</div>
-			<div class="songInfoDisplayer__artist">
-				<h1>Artista: <span>{{song.artist}}</span></h1>
-			</div>
-			<div class="songInfoDisplayer__tempo">
-				<h1>Tempo: <span>{{song.tempo}}bpm</span></h1>
-			</div>
+			<h1>
+				<div class="songInfoDisplayer__title">
+					Titulo: <span>{{song.title}}</span>
+				</div>
+				<div class="songInfoDisplayer__artist">
+					Artista: <span>{{song.artist}}</span>
+				</div>
+				<div class="songInfoDisplayer__tempo">
+					Tempo: <span>{{song.tempo}}bpm</span>
+				</div>
+			</h1>
 		</div>
 
 		<section class="tagsContainer">
 			<div>
 				<strong>Categorias</strong>
 			</div>
-
 			<div class="tagsFormContainer"><!-- Hide for clients -->
 				<app-categories-form [fruits]="song.categories"
 					(tagsUpdated)="updatedTags($event)"></app-categories-form>
@@ -41,7 +42,10 @@
 					<mat-chip>Orange</mat-chip>
 				</div>
 			</div>
+		</section>
 
+		<section class="lyric-area">
+			<app-lyrics [lyricsInput]="song.lyric" (lyricsChange)="updatedLyrics($event)"></app-lyrics>
 		</section>
 
 		<section class="audios"> <!-- Hide if not files available -->
@@ -69,11 +73,12 @@
 
 		</section>
 
-		<section class="lyric-area">
-			<app-lyrics [lyricsInput]="song.lyric" (lyricsChange)="updatedLyrics($event)"></app-lyrics>
-		</section>
-
-
 	</section>
-	<!-- <section class="main-content-2"></section> -->
+	<section class="main-content-2">
+		<app-admin-controls-song
+		[songInput]="song"
+		(songAdminUpdatesEmmiter)="updatedSong($event)"
+		(songRequestDeletion)="adminRequireDeletion()"
+		></app-admin-controls-song>
+	</section>
 </section>

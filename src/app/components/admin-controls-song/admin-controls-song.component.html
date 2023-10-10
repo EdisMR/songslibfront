@@ -1,0 +1,28 @@
+<div>
+	<h2>Administrador</h2>
+</div>
+
+<div class="controls-container">
+	<div class="controls-list-item" mat-ripple>
+		<span>Activar</span>
+		<div>
+			<mat-slide-toggle [checked]="activeSong" (change)="updateActive($event)"></mat-slide-toggle>
+		</div>
+	</div>
+	<div class="controls-list-item" mat-ripple>
+		<span>Eliminar</span>
+		<div>
+			<button mat-mini-fab color="primary" (click)="requestDeletion()">
+				<mat-icon>delete</mat-icon>
+			</button>
+		</div>
+	</div>
+	<div class="controls-list-item" mat-ripple>
+		<span>Subir archivos</span>
+		<div>
+			<button mat-mini-fab color="primary">
+				<mat-icon>attachment</mat-icon>
+			</button>
+		</div>
+	</div>
+</div>

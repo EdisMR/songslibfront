@@ -14,7 +14,7 @@ export class SongComponent implements OnDestroy {
 
   song: songInterface = {} as songInterface
 
-  updateNowSongInfo(){
+  updateNowSongInfo() {
     this._songSvc.updateSong(this.song)
   }
 
@@ -23,29 +23,29 @@ export class SongComponent implements OnDestroy {
       this.song = song
     })
 
-    public get audiosList() {
-      let filetypesAllowed:string[]= environment.fileTypeAllowed
-      return this.song.files.filter((file) => {
-        /* extract file extension */
-        let fileExt = file.split('.').pop()
-        return filetypesAllowed.includes('.' + fileExt)
-      })
-    }
+  public get audiosList() {
+    let filetypesAllowed: string[] = environment.fileTypeAllowed
+    return this.song.files.filter((file) => {
+      /* extract file extension */
+      let fileExt = file.split('.').pop()
+      return filetypesAllowed.includes('.' + fileExt)
+    })
+  }
 
-    public get otherFilesList() {
-      let filetypesAllowed:string[]= environment.fileTypeAllowed
-      return this.song.files.filter((file) => {
-        /* extract file extension */
-        let fileExt = file.split('.').pop()
-        return !filetypesAllowed.includes('.' + fileExt)
-      })
-    }
+  public get otherFilesList() {
+    let filetypesAllowed: string[] = environment.fileTypeAllowed
+    return this.song.files.filter((file) => {
+      /* extract file extension */
+      let fileExt = file.split('.').pop()
+      return !filetypesAllowed.includes('.' + fileExt)
+    })
+  }
 
-    public get staticFilesDir() {
-      return environment.static_files_dir
-    }
+  public get staticFilesDir() {
+    return environment.static_files_dir
+  }
 
-  updatedSongInfo(songInfo: songInterface) {
+  updatedSong(songInfo: songInterface) {
     this.song = songInfo
     this.updateNowSongInfo()
   }
@@ -58,6 +58,10 @@ export class SongComponent implements OnDestroy {
   updatedLyrics(lyrics: string) {
     this.song.lyric = lyrics
     this.updateNowSongInfo()
+  }
+
+  adminRequireDeletion(){
+    console.log('Song deletion required')
   }
 
   ngOnDestroy() {

@@ -36,7 +36,7 @@ export class LyricsComponent implements AfterViewInit, OnDestroy {
       modules: {
         toolbar: [
           ['bold']
-        ]
+        ],
       }
     },
     user: {
@@ -53,11 +53,10 @@ export class LyricsComponent implements AfterViewInit, OnDestroy {
       this.lyrics.decoded = this.QuillEditor.getContents().ops[0].insert;
       this.lyrics.encoded = encodeURIComponent(this.lyrics.decoded);
       this.lyricsChange.emit(this.lyrics.encoded);
-      console.log(this.lyrics.decoded)
     })
 
   private instanciateQuillAdmin(): void {
-    let isAdmin: boolean = true;
+    let isAdmin: boolean = false;
 
     if (!isAdmin) {
       this.QuillEditor = new Quill(this.editor.nativeElement, this.QuillOptions.user);

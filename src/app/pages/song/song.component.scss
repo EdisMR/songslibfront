@@ -1,17 +1,28 @@
-.main-content-2{
+.main-content-2 {
 	width: 20vw;
 }
 
-.tagsContainer{
+.tagsContainer {
 	margin-top: 20px;
 }
 
-.tagsList{
+.tagsList {
 	display: flex;
 	justify-content: flex-start;
 	flex-wrap: wrap;
 	align-items: center;
 }
-.tagsList__item{
+
+.tagsList__item {
 	margin: 0 0.5rem 0.5rem 0;
+}
+
+.admin-section{
+	border: 2px solid black;
+	box-shadow: 0 0 10px black;
+}
+
+.lyric-area{
+	padding-top: 30px;
+	padding-bottom: 30px;
 }

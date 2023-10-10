@@ -21,8 +21,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { SongComponent } from './pages/song/song.component';
 import { UsersListComponent } from './pages/users-list/users-list.component';
-
-
+import { AdminControlsSongComponent } from './components/admin-controls-song/admin-controls-song.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 const MaterialImports = [
   MatToolbarModule,
@@ -32,7 +32,8 @@ const MaterialImports = [
   MatIconModule,
   MatAutocompleteModule,
   MatRippleModule,
-  MatButtonModule
+  MatButtonModule,
+  MatSlideToggleModule
 ]
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ const MaterialImports = [
     FooterComponent,
     SongInfoFormComponent,
     CategoriesFormComponent,
-    LyricsComponent
+    LyricsComponent,
+    AdminControlsSongComponent
   ],
   imports: [
     BrowserModule,
