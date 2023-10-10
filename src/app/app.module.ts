@@ -23,6 +23,7 @@ import { SongComponent } from './pages/song/song.component';
 import { UsersListComponent } from './pages/users-list/users-list.component';
 import { AdminControlsSongComponent } from './components/admin-controls-song/admin-controls-song.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatCardModule } from '@angular/material/card';
 
 const MaterialImports = [
   MatToolbarModule,
@@ -33,7 +34,8 @@ const MaterialImports = [
   MatAutocompleteModule,
   MatRippleModule,
   MatButtonModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatCardModule
 ]
 @NgModule({
   declarations: [

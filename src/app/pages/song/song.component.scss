@@ -17,12 +17,18 @@
 	margin: 0 0.5rem 0.5rem 0;
 }
 
-.admin-section{
+.admin-section {
 	border: 2px solid black;
 	box-shadow: 0 0 10px black;
 }
 
-.lyric-area{
+.lyric-area {
 	padding-top: 30px;
 	padding-bottom: 30px;
+}
+
+@media screen and (max-width:600px) {
+	.main-content-2 {
+		width: 94vw;
+	}
 }

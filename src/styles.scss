@@ -19,6 +19,7 @@ body {
 .main-content-container{
 	display: flex;
 	justify-content: space-evenly;
+	flex-wrap: wrap;
 }
 
 .main-content{
@@ -35,9 +36,10 @@ a{
 
 @media (max-width: 768px) {
 	.main-content-container{
-		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 	}
 	.main-content{
-		width: 100vw;
+		width: 94vw;
 	}
 }

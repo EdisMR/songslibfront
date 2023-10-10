@@ -1,3 +1,24 @@
 <section class="main-content-container">
 	<section class="main-content"></section>
 </section>
+
+<section class="songs-list">
+	<ng-container *ngFor="let song of songsList">
+		<mat-card class="card" mat-ripple [routerLink]="['','song',song.public_id]">
+			<mat-card-header>
+				<mat-card-title>
+					<span>{{song.title}}</span>
+				</mat-card-title>
+			</mat-card-header>
+			<mat-card-actions>
+				<div class="categories-container">
+				<ng-container *ngFor="let tag of song.categories">
+					<div class="category">
+						<mat-chip>{{tag}}</mat-chip>
+					</div>
+					</ng-container>
+				</div>
+			</mat-card-actions>
+		</mat-card>
+	</ng-container>
+</section>
