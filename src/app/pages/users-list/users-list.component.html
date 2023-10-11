@@ -5,7 +5,7 @@
 		<div class="form-container">
 			<div [formGroup]="idForm">
 				<mat-form-field>
-					<mat-label>User ID</mat-label>
+					<mat-label>ID Público</mat-label>
 					<mat-select formControlName="idControl">
 						<mat-option *ngFor="let user of usersInfo" [value]="user.public_id">
 							{{user.public_id}}
@@ -18,7 +18,7 @@
 		<div class="display-user-info">
 			<h2>
 				<div>
-					<span>Name: {{userEditing.username}}</span>
+					<span>Nombre: {{userEditing.username}}</span>
 				</div>
 				<div>
 					<span>Email: {{userEditing.email}}</span>
