@@ -22,9 +22,10 @@ import { FooterComponent } from './components/footer/footer.component';
 import { LyricsComponent } from './components/lyrics/lyrics.component';
 import { SongInfoFormComponent } from './components/song-info-form/song-info-form.component';
 import { HomeComponent } from './pages/home/home.component';
-import { ProfileComponent } from './pages/profile/profile.component';
 import { SongComponent } from './pages/song/song.component';
 import { UsersListComponent } from './pages/users-list/users-list.component';
+import { LoginComponent } from './pages/login/login.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 
 const MaterialImports = [
@@ -45,13 +46,14 @@ const MaterialImports = [
     AppComponent,
     HomeComponent,
     UsersListComponent,
-    ProfileComponent,
     SongComponent,
     FooterComponent,
     SongInfoFormComponent,
     CategoriesFormComponent,
     LyricsComponent,
-    AdminControlsSongComponent
+    AdminControlsSongComponent,
+    LoginComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

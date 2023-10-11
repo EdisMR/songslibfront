@@ -1,3 +1,25 @@
 <section class="main-content-container">
-	<section class="main-content"></section>
+	<section class="main-content">
+		<div>
+			<mat-form-field [formGroup]="idForm">
+				<mat-label>User Public ID</mat-label>
+				<mat-select formControlName="idControl">
+					<mat-option *ngFor="let user of usersInfo" [value]="user.public_id">
+						{{user.public_id}}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+
+		<div>
+			<h2>
+				<div>
+					<!-- Name: {{currentName}} -->
+				</div>
+				<div>
+					<!-- Email: {{currentEmail}} -->
+				</div>
+			</h2>
+		</div>
+	</section>
 </section>

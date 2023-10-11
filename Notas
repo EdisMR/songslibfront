@@ -3,3 +3,44 @@ Lyrics component, implementar cambio de admin a user
 song component, implementar cambio de admin a user
 
 implementar subida de archivos en AdminControlsSong
+
+
+
+
+  public nameForm!: FormGroup
+  public get currentName(): string {
+    //! Implementar. Obtener el nombre del usuario logueado
+    return this.userEditing.name
+  }
+  private nameFormBuilder() {
+    this.nameForm = this._fb.group({
+      nameOld: [this.userEditing.name || ''],
+      nameNew: ['']
+    })
+  }
+  public updateName() { }
+
+
+  public emailForm!: FormGroup
+  public get currentEmail() {
+    //! Implementar. Obtener el email del usuario logueado
+    return this.userEditing.email
+  }
+  private emailFormBuilder() {
+    this.emailForm = this._fb.group({
+      emailOld: [this.userEditing.email || ''],
+      emailNew: ['']
+    })
+  }
+  public updateEmail() { }
+
+
+  public passwordForm!: FormGroup
+  private passwordFormBuilder() {
+    this.passwordForm = this._fb.group({
+      passwordOld: [''],
+      passwordNew: [''],
+      passwordConfirm: ['']
+    })
+  }
+  public updatePassword() { }
