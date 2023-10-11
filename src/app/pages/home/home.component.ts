@@ -1,10 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { categoriesListEnv } from 'src/app/environment/environment';
 import { categoriesInterface } from 'src/app/interfaces/categories.interface';
 import { songInterface } from 'src/app/interfaces/song.interface';
-import { SongService } from 'src/app/services/song.service';
 
 @Component({
   selector: 'app-home',
@@ -14,19 +14,17 @@ import { SongService } from 'src/app/services/song.service';
 export class HomeComponent implements OnDestroy {
   constructor(
     private _fb: FormBuilder,
-    private songSvc: SongService
+    private _activatedRoute: ActivatedRoute,
   ) {
-    this.buildForm()
-    this.filterData()
+    this._activatedRoute.data.subscribe(data=>{
+      this.songsListSource=data['songs']
+      this.buildForm()
+      this.filterData()
+    })
   }
 
   public songsListSource: songInterface[] = []
   public songsListFiltered: songInterface[] = []
-  private songsSubscription: Subscription = this.songSvc.allSongs$()
-    .subscribe(songs => {
-      this.songsListSource = songs
-      this.filterData()
-    })
   public categories: categoriesInterface = categoriesListEnv
 
   public get resultsFrom(): string {
@@ -40,6 +38,7 @@ export class HomeComponent implements OnDestroy {
     return resultsFrom
   }
 
+  choosenCategory = ''
   chooseOneCategory(categorySelected: string, preventSearchProblem?: boolean) {
     if (!preventSearchProblem) {
       this.formSearch.reset()
@@ -48,7 +47,6 @@ export class HomeComponent implements OnDestroy {
     this.songsListFiltered = []
     this.filterData()
   }
-  choosenCategory = ''
 
 
   filterData() {
@@ -89,7 +87,6 @@ export class HomeComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.songsSubscription.unsubscribe()
     this.formSearchSubscription.unsubscribe()
   }
 }

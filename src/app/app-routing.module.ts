@@ -5,10 +5,11 @@ import { SongComponent } from './pages/song/song.component';
 import { UsersListComponent } from './pages/users-list/users-list.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { AboutComponent } from './pages/about/about.component';
+import { SongsResolver } from './resolvers/songs.resolver';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'song/:id', component: SongComponent },
+  { path: '', component: HomeComponent, resolve:{songs:SongsResolver} },
+  { path: 'song/:id', component: SongComponent, resolve:{songs:SongsResolver} },
   { path: 'users', component: UsersListComponent },
   { path: 'about', component: AboutComponent },
   { path: '**', component: NotFoundComponent }

@@ -3,7 +3,6 @@ import { songInterface } from 'src/app/interfaces/song.interface';
 import { SongService } from 'src/app/services/song.service';
 import { environment } from 'src/app/environment/environment';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-song',
@@ -15,47 +14,41 @@ export class SongComponent implements OnDestroy {
     private _songSvc: SongService,
     private _activatedRoute: ActivatedRoute,
   ) {
-    this.getSongId()
+    this.getSongInfo()
   }
 
   song: songInterface = {} as songInterface
-
-  getSongId() {
-    this._activatedRoute.params.subscribe((params: Params) => {
-      this.getSongInfo(params['id'])
-    })
-  }
 
   updateNowSongInfo() {
     this._songSvc.updateSong(this.song)
   }
 
-  private allSongsSubscription!: Subscription
-  private getSongInfo(idParam:string) {
-    this.allSongsSubscription = this._songSvc.allSongs$()
-      .subscribe((songsList) => {
-        this.song = songsList.filter((song) => {
-          return song.public_id == idParam
-        })[0]
-      })
+  private getSongInfo() {
+    this._activatedRoute.data.subscribe((data: Params) => {
+      this.song=data['songs']
+    })
   }
 
   public get audiosList() {
     let filetypesAllowed: string[] = environment.fileTypeAllowed
-    return this.song.files.filter((file) => {
-      /* extract file extension */
-      let fileExt = file.split('.').pop()
-      return filetypesAllowed.includes('.' + fileExt)
-    })
+    try {
+      return this.song.files.filter((file) => {
+        /* extract file extension */
+        let fileExt = file.split('.').pop()
+        return filetypesAllowed.includes('.' + fileExt)
+      })
+    } catch (error) { return [] }
   }
 
   public get otherFilesList() {
     let filetypesAllowed: string[] = environment.fileTypeAllowed
-    return this.song.files.filter((file) => {
-      /* extract file extension */
-      let fileExt = file.split('.').pop()
-      return !filetypesAllowed.includes('.' + fileExt)
-    })
+    try {
+      return this.song.files.filter((file) => {
+        /* extract file extension */
+        let fileExt = file.split('.').pop()
+        return !filetypesAllowed.includes('.' + fileExt)
+      })
+    } catch (error) { return [] }
   }
 
   public get staticFilesDir() {
@@ -82,6 +75,5 @@ export class SongComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.allSongsSubscription.unsubscribe()
   }
 }

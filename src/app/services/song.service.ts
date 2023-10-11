@@ -27,25 +27,21 @@ export class SongService {
   private allSongsExposer: BehaviorSubject<songInterface[]> = new BehaviorSubject(this.allSongsSource)
 
   public allSongs$(): Observable<songInterface[]> {
-    if (!this.allSongsSource.length) {
-      this._loader.display()
-      return this._http.get<RespGetAllSongs>(this.variables.api_songs)
-        .pipe(
-          map((resp) => {
-            this.allSongsSource = resp.data
-            this.allSongsExposer.next(this.allSongsSource)
-            return this.allSongsSource
-          }),
-          catchError((err) => {
-            this._snackBar.open('Error al consultar la base de datos')
-            return EMPTY
-          }),
-          tap(() => {
-            this._loader.hide()
-          })
-        )
-    }
-    return this.allSongsExposer.asObservable()
+    this._loader.display()
+    return this._http.get<RespGetAllSongs>(this.variables.api_songs)
+      .pipe(
+        map((resp) => {
+          this.allSongsSource = resp.data
+          return this.allSongsSource
+        }),
+        catchError((err) => {
+          this._snackBar.open('Error al consultar la base de datos')
+          return EMPTY
+        }),
+        tap(() => {
+          this._loader.hide()
+        })
+      )
   }
 
   public updateSong(song: songInterface) {
