@@ -14,18 +14,17 @@ export class SongComponent implements OnDestroy {
     private _songSvc: SongService,
     private _activatedRoute: ActivatedRoute,
   ) {
-    this.getSongInfo()
+    this._activatedRoute.data.subscribe((data: Params) => {
+      this.song=data['songs']
+    })
   }
 
   song: songInterface = {} as songInterface
 
   updateNowSongInfo() {
     this._songSvc.updateSong(this.song)
-  }
-
-  private getSongInfo() {
-    this._activatedRoute.data.subscribe((data: Params) => {
-      this.song=data['songs']
+    .subscribe((resp) => {
+      this.song = resp
     })
   }
 

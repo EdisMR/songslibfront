@@ -15,11 +15,13 @@ export class LyricsComponent implements AfterViewInit, OnDestroy {
   constructor() { }
 
   private lyrics: {
-    encoded: string;
+    encoded: string
     decoded: string
+    modified: boolean
   } = {
       encoded: '',
-      decoded: ''
+      decoded: '',
+      modified: false
     }
   @Input() set lyricsInput(encodedValue: string) {
     this.lyrics.encoded = encodedValue
@@ -50,10 +52,15 @@ export class LyricsComponent implements AfterViewInit, OnDestroy {
   private updateSubscription: Subscription = this.updateSubject
     .pipe(debounceTime(1200))
     .subscribe(({ }) => {
-      this.lyrics.decoded = this.QuillEditor.getContents().ops[0].insert;
-      this.lyrics.encoded = encodeURIComponent(this.lyrics.decoded);
-      this.lyricsChange.emit(this.lyrics.encoded);
+      if (this.lyrics.modified) this.updateLyrics()
     })
+
+  updateLyrics() {
+    this.lyrics.decoded = this.QuillEditor.getContents().ops[0].insert;
+    this.lyrics.encoded = encodeURIComponent(this.lyrics.decoded);
+    this.lyricsChange.emit(this.lyrics.encoded);
+    console.log('lyrics updated')
+  }
 
   private instanciateQuillAdmin(): void {
     let isAdmin: boolean = true;
@@ -69,6 +76,7 @@ export class LyricsComponent implements AfterViewInit, OnDestroy {
 
     if (isAdmin) {
       this.QuillEditor.on('text-change', () => {
+        this.lyrics.modified = true
         this.updateSubject.next({})
       })
     }

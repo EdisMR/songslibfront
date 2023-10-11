@@ -9,13 +9,19 @@
 		<div class="songInfoDisplayer">
 			<h1>
 				<div class="songInfoDisplayer__title">
-					Titulo: <span>{{song.title}}</span>
+					<span>Titulo: </span>
+					<span *ngIf="song.title">{{song.title}}</span>
+					<span *ngIf="!song.title"><i>-----</i></span>
 				</div>
 				<div class="songInfoDisplayer__artist">
-					Artista: <span>{{song.artist}}</span>
+					<span>Artista: </span>
+					<span *ngIf="song.artist">{{song.artist}}</span>
+					<span *ngIf="!song.artist"><i>-----</i></span>
 				</div>
 				<div class="songInfoDisplayer__tempo">
-					Tempo: <span>{{song.tempo}}bpm</span>
+					<span>Tempo: </span>
+					<span *ngIf="song.tempo">{{song.tempo}}bpm</span>
+					<span *ngIf="!song.tempo"><i>-----</i></span>
 				</div>
 			</h1>
 		</div>

@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, EMPTY, Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from '../environment/environment';
-import { RespGetAllSongs, songInterface } from '../interfaces/song.interface';
+import { RespGetAllSongs, RespPatchSong, songInterface } from '../interfaces/song.interface';
 import { LoaderService } from './loader.service';
 @Injectable({
   providedIn: 'root'
@@ -49,7 +49,21 @@ export class SongService {
     return this.allSongs
   }
 
-  public updateSong(song: songInterface) {
+  public updateSong(song: songInterface):Observable<songInterface> {
+    this._loader.display()
+    return this._http.patch<RespPatchSong>(this.variables.api_songs+'/'+song.public_id, song)
+    .pipe(
+      map((resp) => {
+        return resp.data
+      }),
+      catchError((err) => {
+        this._snackBar.open('Error al consultar la base de datos')
+        return EMPTY
+      }),
+      tap(() => {
+        this._loader.hide()
+      })
+    )
   }
 
 

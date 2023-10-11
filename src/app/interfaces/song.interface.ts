@@ -24,7 +24,8 @@ export interface RespGetAllSongs {
 	};
 	data: songInterface[];
 }
-export interface RespGetOneSong {
+
+export interface RespPatchSong {
 	response_details: {
 		execution_result: boolean;
 		message: string;
