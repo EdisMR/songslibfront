@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { UsersInterface } from 'src/app/interfaces/users.interface';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-users-list',
@@ -9,27 +10,34 @@ import { UsersInterface } from 'src/app/interfaces/users.interface';
   styleUrls: ['./users-list.component.scss']
 })
 export class UsersListComponent implements OnInit, OnDestroy {
-  constructor(private _fb: FormBuilder) {
+  constructor(
+    private _fb: FormBuilder,
+    private usersService: UsersService
+    ) {
+      this.idFormBuilder()
+      this.nameChangeFormBuilder()
+      this.emailChangeFormBuilder()
+      this.passChangeFormBuilder()
   }
 
-  usersInfo: UsersInterface[] = [{
-    public_id: '000',
-    name: 'Juan',
-    email: 'email@email.com'
-  }]
-  userEditing: UsersInterface = {
-    public_id: '000',
-    name: 'Fabio',
-    email: 'fabio@email.com'
+  public usersInfo: UsersInterface[] = []
+  public userEditing: UsersInterface = {} as UsersInterface
+  public get isItMe(): boolean {
+    return false
   }
-  isItMe: boolean = false
+
+  private userSubscription: Subscription = this.usersService.usersList$
+  .subscribe((usersList) => {
+    this.usersInfo = usersList
+    this.userEditing = usersList[0] //! Implementar. Obtener el usuario desde url
+  })
 
   public idForm!: FormGroup
   public idFormSubscription!: Subscription
   private idFormBuilder() {
     this.idForm = this._fb.group({
-      //! Implementar. Obtener el id del usuario logueado
-      idControl: [this.userEditing.public_id || '']
+      //! Implementar. Obtener el id desde la url
+      idControl: [this.userEditing.public_id]
     })
     this.idFormSubscription = this.idForm.valueChanges
       .subscribe((value) => {
@@ -38,20 +46,50 @@ export class UsersListComponent implements OnInit, OnDestroy {
       })
   }
 
-
-
-
-
-  private getInfoFromApi() {
-    this.idFormBuilder()
+  public nameChangeForm!:FormGroup
+  private nameChangeFormBuilder() {
+    this.nameChangeForm = this._fb.group({
+      newName: ['']
+    })
   }
+  changeName(){}
+
+
+  public emailChangeForm!:FormGroup
+  private emailChangeFormBuilder() {
+    this.emailChangeForm = this._fb.group({
+      newEmail: ['']
+    })
+  }
+  changeEmail(){}
+
+
+
+  public passChangeForm!:FormGroup
+  private passChangeFormBuilder() {
+    this.passChangeForm = this._fb.group({
+      oldPass: [''],
+      newPass: [''],
+      newPassConfirm: ['',[Validators.required]]
+    })
+  }
+  changePass(){}
+
+
+  deleteUser(){}
+
+  public get userActive(): boolean {
+    return true
+  }
+  switchActiveUser(){}
+
 
   ngOnInit(): void {
-    this.getInfoFromApi()
   }
 
   ngOnDestroy(): void {
     this.idFormSubscription.unsubscribe()
+    this.userSubscription.unsubscribe()
   }
 
 }

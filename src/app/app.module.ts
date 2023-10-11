@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,10 +23,12 @@ import { FooterComponent } from './components/footer/footer.component';
 import { LyricsComponent } from './components/lyrics/lyrics.component';
 import { SongInfoFormComponent } from './components/song-info-form/song-info-form.component';
 import { HomeComponent } from './pages/home/home.component';
-import { SongComponent } from './pages/song/song.component';
-import { UsersListComponent } from './pages/users-list/users-list.component';
 import { LoginComponent } from './pages/login/login.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { SongComponent } from './pages/song/song.component';
+import { UsersListComponent } from './pages/users-list/users-list.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 
 const MaterialImports = [
@@ -39,7 +42,9 @@ const MaterialImports = [
   MatButtonModule,
   MatSlideToggleModule,
   MatCardModule,
-  MatMenuModule
+  MatMenuModule,
+  MatSelectModule,
+  MatTooltipModule
 ]
 @NgModule({
   declarations: [

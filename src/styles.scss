@@ -38,10 +38,6 @@ body {
 	width: 50vw;
 }
 
-.w100 {
-	width: 100%;
-}
-
 a {
 	text-decoration: none;
 	color: mat.get-color-from-palette($accent);
@@ -49,6 +45,14 @@ a {
 
 .link-cursor {
 	cursor: pointer;
+}
+
+.mat-mdc-form-field {
+	width: 100%;
+}
+
+::ng-deep input.mat-input-element {
+	color: #4287d6
 }
 
 @media (max-width: 768px) {
