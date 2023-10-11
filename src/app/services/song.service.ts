@@ -25,13 +25,16 @@ export class SongService {
 
   private allSongsSource: songInterface[] = []
   private allSongsExposer: BehaviorSubject<songInterface[]> = new BehaviorSubject(this.allSongsSource)
+  private allSongs: Observable<songInterface[]> = this.allSongsExposer.asObservable()
 
   public allSongs$(): Observable<songInterface[]> {
-    this._loader.display()
-    return this._http.get<RespGetAllSongs>(this.variables.api_songs)
+    if(this.allSongsSource.length === 0) {
+      this._loader.display()
+      return this._http.get<RespGetAllSongs>(this.variables.api_songs)
       .pipe(
         map((resp) => {
           this.allSongsSource = resp.data
+          this.allSongsExposer.next(this.allSongsSource)
           return this.allSongsSource
         }),
         catchError((err) => {
@@ -42,6 +45,8 @@ export class SongService {
           this._loader.hide()
         })
       )
+    }
+    return this.allSongs
   }
 
   public updateSong(song: songInterface) {

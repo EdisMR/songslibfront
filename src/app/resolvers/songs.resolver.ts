@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { songInterface } from '../interfaces/song.interface';
 import { SongService } from '../services/song.service';
@@ -9,7 +9,8 @@ import { SongService } from '../services/song.service';
 })
 export class SongsResolver {
   constructor(
-    private _song: SongService
+    private _song: SongService,
+    private _router: Router
   ) { }
   resolve(route: ActivatedRouteSnapshot): Observable<songInterface[]> | Observable<songInterface> {
     let songId:string = '';
@@ -22,6 +23,9 @@ export class SongsResolver {
             result = songsList.filter((song) => {
               return song.public_id == songId
             })[0]
+            if(result === undefined) {
+              this._router.navigate(['/not-found'])
+            }
             return result
           })
         )
