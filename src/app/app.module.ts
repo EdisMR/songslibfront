@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,7 +14,9 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,13 +25,12 @@ import { CategoriesFormComponent } from './components/categories-form/categories
 import { FooterComponent } from './components/footer/footer.component';
 import { LyricsComponent } from './components/lyrics/lyrics.component';
 import { SongInfoFormComponent } from './components/song-info-form/song-info-form.component';
+import { AboutComponent } from './pages/about/about.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { SongComponent } from './pages/song/song.component';
 import { UsersListComponent } from './pages/users-list/users-list.component';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { AboutComponent } from './pages/about/about.component';
-
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 const MaterialImports = [
@@ -44,7 +46,9 @@ const MaterialImports = [
   MatCardModule,
   MatMenuModule,
   MatSelectModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatSnackBarModule,
+  MatProgressBarModule
 ]
 @NgModule({
   declarations: [
@@ -65,7 +69,8 @@ const MaterialImports = [
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialImports,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

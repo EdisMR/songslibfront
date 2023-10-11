@@ -2,6 +2,9 @@ import { Component, OnDestroy } from '@angular/core';
 import { songInterface } from 'src/app/interfaces/song.interface';
 import { SongService } from 'src/app/services/song.service';
 import { environment } from 'src/app/environment/environment';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Subscription } from 'rxjs';
+
 @Component({
   selector: 'app-song',
   templateUrl: './song.component.html',
@@ -9,19 +12,33 @@ import { environment } from 'src/app/environment/environment';
 })
 export class SongComponent implements OnDestroy {
   constructor(
-    private _songSvc: SongService
-  ) { }
+    private _songSvc: SongService,
+    private _activatedRoute: ActivatedRoute,
+  ) {
+    this.getSongId()
+  }
 
   song: songInterface = {} as songInterface
+
+  getSongId() {
+    this._activatedRoute.params.subscribe((params: Params) => {
+      this.getSongInfo(params['id'])
+    })
+  }
 
   updateNowSongInfo() {
     this._songSvc.updateSong(this.song)
   }
 
-  private songInfo = this._songSvc.song$
-    .subscribe((song) => {
-      this.song = song
-    })
+  private allSongsSubscription!: Subscription
+  private getSongInfo(idParam:string) {
+    this.allSongsSubscription = this._songSvc.allSongs$()
+      .subscribe((songsList) => {
+        this.song = songsList.filter((song) => {
+          return song.public_id == idParam
+        })[0]
+      })
+  }
 
   public get audiosList() {
     let filetypesAllowed: string[] = environment.fileTypeAllowed
@@ -60,11 +77,11 @@ export class SongComponent implements OnDestroy {
     this.updateNowSongInfo()
   }
 
-  adminRequireDeletion(){
+  adminRequireDeletion() {
     console.log('Song deletion required')
   }
 
   ngOnDestroy() {
-    this.songInfo.unsubscribe()
+    this.allSongsSubscription.unsubscribe()
   }
 }

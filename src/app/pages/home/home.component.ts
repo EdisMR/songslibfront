@@ -22,9 +22,10 @@ export class HomeComponent implements OnDestroy {
 
   public songsListSource: songInterface[] = []
   public songsListFiltered: songInterface[] = []
-  private songsSubscription: Subscription = this.songSvc.songsList$
+  private songsSubscription: Subscription = this.songSvc.allSongs$()
     .subscribe(songs => {
       this.songsListSource = songs
+      this.filterData()
     })
   public categories: categoriesInterface = categoriesListEnv
 
