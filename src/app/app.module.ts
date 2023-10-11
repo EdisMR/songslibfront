@@ -23,11 +23,11 @@ import { FooterComponent } from './components/footer/footer.component';
 import { LyricsComponent } from './components/lyrics/lyrics.component';
 import { SongInfoFormComponent } from './components/song-info-form/song-info-form.component';
 import { HomeComponent } from './pages/home/home.component';
-import { LoginComponent } from './pages/login/login.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { SongComponent } from './pages/song/song.component';
 import { UsersListComponent } from './pages/users-list/users-list.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { AboutComponent } from './pages/about/about.component';
 
 
 
@@ -57,8 +57,8 @@ const MaterialImports = [
     CategoriesFormComponent,
     LyricsComponent,
     AdminControlsSongComponent,
-    LoginComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,

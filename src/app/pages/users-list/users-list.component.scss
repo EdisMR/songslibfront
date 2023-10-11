@@ -1,13 +1,18 @@
-.main-content{
+.main-content {
 	padding-top: 50px;
 	padding-bottom: 50px;
+}
+
+.warn-text {
+	color: red;
 }
 
 .form-container {
 	margin-bottom: 50px;
 }
 
-.display-user-info {
+.display-user-info,
+.other-actions {
 	margin-top: 50px;
 	margin-bottom: 50px;
 }

@@ -84,6 +84,9 @@ export class UsersListComponent implements OnInit, OnDestroy {
   switchActiveUser(){}
 
 
+  logout(){}
+  
+
   ngOnInit(): void {
   }
 

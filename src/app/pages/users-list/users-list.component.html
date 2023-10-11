@@ -23,6 +23,9 @@
 				<div>
 					<span>Email: {{userEditing.email}}</span>
 				</div>
+				<div><!-- *ngIf="isItMe" -->
+					<span class="warn-text">*** Sesión Actual ***</span>
+				</div>
 			</h2>
 		</div>
 
@@ -114,6 +117,18 @@
 		</div>
 
 
+		<div class="other-actions">
+			<div>
+				<h2>Sesión del administrador</h2>
+			</div>
+			<div class="controls-container">
+				<div class="control-item">
+					<button mat-raised-button (click)="logout()">
+						<span>Cerrrar sesión</span>
+					</button>
+				</div>
+			</div>
+		</div>
 
 	</section>
 </section>
