@@ -20,6 +20,7 @@ export class SongComponent implements OnDestroy {
   }
 
   song: songInterface = {} as songInterface
+  isAdmin: boolean = true;
 
   updateNowSongInfo() {
     this._songSvc.updateSong(this.song)

@@ -2,11 +2,11 @@
 	<section class="main-content">
 
 
-		<div class="songInfoFormContainer"><!-- Hide for clients -->
+		<div class="songInfoFormContainer" *ngIf="isAdmin"><!-- Hide for clients -->
 			<app-song-info-form [songInfoInput]="song" (songInfoUpdated)="updatedSong($event)"></app-song-info-form>
 		</div>
 
-		<div class="songInfoDisplayer">
+		<div class="songInfoDisplayer" *ngIf="!isAdmin">
 			<h1>
 				<div class="songInfoDisplayer__title">
 					<span>Titulo: </span>
@@ -30,11 +30,11 @@
 			<div>
 				<strong>Categorias</strong>
 			</div>
-			<div class="tagsFormContainer"><!-- Hide for clients -->
+			<div class="tagsFormContainer" *ngIf="isAdmin"><!-- Hide for clients -->
 				<app-categories-form [tags]="song.categories"
 					(tagsUpdated)="updatedTags($event)"></app-categories-form>
 			</div>
-			<div class="tagsList"><!-- NGFOR -->
+			<div class="tagsList" *ngIf="!isAdmin"><!-- NGFOR -->
 				<div class="tagsList__item" *ngFor="let category of song.categories">
 					<mat-chip>{{category}}</mat-chip>
 				</div>
@@ -42,7 +42,7 @@
 		</section>
 
 		<section class="lyric-area">
-			<app-lyrics [lyricsInput]="song.lyric" (lyricsChange)="updatedLyrics($event)"></app-lyrics>
+			<app-lyrics [lyricsInput]="song.lyric" [adminControls]="isAdmin" (lyricsChange)="updatedLyrics($event)"></app-lyrics>
 		</section>
 
 		<section class="audios"> <!-- Hide if not files available -->
@@ -71,7 +71,7 @@
 		</section>
 
 	</section>
-	<section class="main-content-2">
+	<section class="main-content-2" *ngIf="isAdmin">
 		<app-admin-controls-song [songInput]="song" (songAdminUpdatesEmmiter)="updatedSong($event)"
 			(songRequestDeletion)="adminRequireDeletion()"></app-admin-controls-song>
 	</section>

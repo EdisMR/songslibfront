@@ -19,15 +19,20 @@ export class LyricsComponent implements AfterViewInit, OnDestroy {
   private lyrics: {
     encoded: string
     decoded: string
-    modified: boolean
+    modified: number
+    adminControls:boolean
   } = {
       encoded: '',
       decoded: '',
-      modified: false
+      modified: 0,
+      adminControls:false
     }
   @Input() set lyricsInput(encodedValue: string) {
     this.lyrics.encoded = encodedValue
     this.lyrics.decoded = decodeURIComponent(encodedValue);
+  }
+  @Input() set adminControls(value: boolean) {
+    this.lyrics.adminControls = value
   }
   @Output() lyricsChange = new EventEmitter<string>();
 
@@ -55,9 +60,9 @@ export class LyricsComponent implements AfterViewInit, OnDestroy {
 
   private updateSubject: BehaviorSubject<{}> = new BehaviorSubject({})
   private updateSubscription: Subscription = this.updateSubject
-    .pipe(debounceTime(1200))
+    .pipe(debounceTime(1500))
     .subscribe(({ }) => {
-      if (this.lyrics.modified) this.updateLyrics()
+      if (this.lyrics.modified>1) this.updateLyrics()
     })
 
   updateLyrics() {
@@ -67,7 +72,7 @@ export class LyricsComponent implements AfterViewInit, OnDestroy {
   }
 
   private instanciateQuillAdmin(): void {
-    let isAdmin: boolean = true;
+    let isAdmin: boolean = this.lyrics.adminControls;
 
     if (!isAdmin) {
       this.QuillEditor = new Quill(this.editor.nativeElement, this.QuillOptions.user);
@@ -80,7 +85,7 @@ export class LyricsComponent implements AfterViewInit, OnDestroy {
 
     if (isAdmin) {
       this.QuillEditor.on('text-change', () => {
-        this.lyrics.modified = true
+        this.lyrics.modified++
         this.updateSubject.next({})
       })
     }

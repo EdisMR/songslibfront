@@ -64,6 +64,9 @@ export class SongService {
         this._loader.hide()
         let itemToUpdate= this.allSongsSource.findIndex((item) => item.public_id === song.public_id)
         this.allSongsSource[itemToUpdate] = song
+        this._snackBar.open('Actualizado','',{
+          duration: 500
+        })
       })
     )
   }
