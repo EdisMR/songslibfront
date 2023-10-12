@@ -10,9 +10,11 @@ declare var Quill: any;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LyricsComponent implements AfterViewInit, OnDestroy {
-  @ViewChild('editor', { read: ElementRef }) editor!: ElementRef;
 
-  constructor() { }
+  constructor(
+    private elementHtml: ElementRef,
+  ) { }
+  @ViewChild('editor', { read: ElementRef }) editor!: ElementRef;
 
   private lyrics: {
     encoded: string
@@ -29,8 +31,8 @@ export class LyricsComponent implements AfterViewInit, OnDestroy {
   }
   @Output() lyricsChange = new EventEmitter<string>();
 
-  private QuillEditor: any;
-  QuillOptions: any = {
+  private QuillEditor!: any;
+  QuillOptions = {
     admin: {
       theme: 'snow',
       placeholder: 'Letras y acordes...',
@@ -46,6 +48,9 @@ export class LyricsComponent implements AfterViewInit, OnDestroy {
       readOnly: true,
     }
   }
+  private get quillEditorRef(){
+    return this.elementHtml.nativeElement.querySelector('.ql-editor')
+  } 
 
 
   private updateSubject: BehaviorSubject<{}> = new BehaviorSubject({})
@@ -56,10 +61,9 @@ export class LyricsComponent implements AfterViewInit, OnDestroy {
     })
 
   updateLyrics() {
-    this.lyrics.decoded = this.QuillEditor.getContents().ops[0].insert;
+    this.lyrics.decoded = this.quillEditorRef.innerHTML;
     this.lyrics.encoded = encodeURIComponent(this.lyrics.decoded);
     this.lyricsChange.emit(this.lyrics.encoded);
-    console.log('lyrics updated')
   }
 
   private instanciateQuillAdmin(): void {
@@ -72,7 +76,7 @@ export class LyricsComponent implements AfterViewInit, OnDestroy {
       this.QuillEditor = new Quill(this.editor.nativeElement, this.QuillOptions.admin);
     }
 
-    this.QuillEditor.setText(decodeURIComponent(this.lyrics.decoded));
+    this.quillEditorRef.innerHTML = this.lyrics.decoded;
 
     if (isAdmin) {
       this.QuillEditor.on('text-change', () => {
