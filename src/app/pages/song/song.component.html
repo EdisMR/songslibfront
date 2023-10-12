@@ -31,21 +31,12 @@
 				<strong>Categorias</strong>
 			</div>
 			<div class="tagsFormContainer"><!-- Hide for clients -->
-				<app-categories-form [fruits]="song.categories"
+				<app-categories-form [tags]="song.categories"
 					(tagsUpdated)="updatedTags($event)"></app-categories-form>
 			</div>
 			<div class="tagsList"><!-- NGFOR -->
-				<div class="tagsList__item">
-					<mat-chip>Orange</mat-chip>
-				</div>
-				<div class="tagsList__item">
-					<mat-chip>Orange</mat-chip>
-				</div>
-				<div class="tagsList__item">
-					<mat-chip>Orange</mat-chip>
-				</div>
-				<div class="tagsList__item">
-					<mat-chip>Orange</mat-chip>
+				<div class="tagsList__item" *ngFor="let category of song.categories">
+					<mat-chip>{{category}}</mat-chip>
 				</div>
 			</div>
 		</section>

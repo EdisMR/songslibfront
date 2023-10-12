@@ -62,6 +62,8 @@ export class SongService {
       }),
       tap(() => {
         this._loader.hide()
+        let itemToUpdate= this.allSongsSource.findIndex((item) => item.public_id === song.public_id)
+        this.allSongsSource[itemToUpdate] = song
       })
     )
   }

@@ -2,18 +2,20 @@
 	<mat-form-field>
 		<mat-label>Favorite Fruits</mat-label>
 		<mat-chip-grid #chipGrid aria-label="Fruit selection">
-			<mat-chip-row *ngFor="let fruit of fruits" (removed)="remove(fruit)">
-				{{fruit}}
-				<button matChipRemove [attr.aria-label]="'remove ' + fruit">
+			<mat-chip-row *ngFor="let tag of tagsList" (removed)="remove(tag)">
+				{{tag}}
+				<button matChipRemove [attr.aria-label]="'remove ' + tag">
 					<mat-icon>cancel</mat-icon>
 				</button>
 			</mat-chip-row>
 		</mat-chip-grid>
 		<input #fruitInput [matChipInputFor]="chipGrid" [matAutocomplete]="auto"/>
 		<mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-			<mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
-				{{fruit}}
+		<mat-optgroup *ngFor="let category of categories" [label]="category.name">
+			<mat-option *ngFor="let subcategory of category.subcategories" [value]="subcategory">
+				{{subcategory}}
 			</mat-option>
+		</mat-optgroup>
 		</mat-autocomplete>
 	</mat-form-field>
 </form>

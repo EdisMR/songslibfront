@@ -25,7 +25,7 @@ export class HomeComponent implements OnDestroy {
 
   public songsListSource: songInterface[] = []
   public songsListFiltered: songInterface[] = []
-  public categories: categoriesInterface = categoriesListEnv
+  public categories: categoriesInterface[] = categoriesListEnv
 
   public get resultsFrom(): string {
     let resultsFrom = ''

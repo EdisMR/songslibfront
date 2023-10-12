@@ -1,8 +1,8 @@
-import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, ElementRef, EventEmitter, inject, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { Observable, map, startWith } from 'rxjs';
+import { categoriesListEnv } from 'src/app/environment/environment';
+import { categoriesInterface } from 'src/app/interfaces/categories.interface';
 
 @Component({
   selector: 'app-categories-form',
@@ -10,54 +10,56 @@ import { Observable, map, startWith } from 'rxjs';
   styleUrls: ['./categories-form.component.scss']
 })
 export class CategoriesFormComponent implements OnInit {
-  fruitCtrl = new FormControl('');
-  filteredFruits: Observable<string[]>;
-  allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
+
+  constructor() {}
+
+  categories: categoriesInterface[] = categoriesListEnv
+
+  tagsList: string[] = []
+  @Input() set tags(data:string[]){
+    this.tagsList = data
+  }
+  
+  @Output() tagsUpdated = new EventEmitter<string[]>();
+  emitUpdates() {
+    this.tagsUpdated.emit(this.tagsList);
+  }
+
+  fruitCtrl = new FormControl(); // the user's input
 
   @ViewChild('fruitInput', { read: ElementRef }) fruitInput: ElementRef<HTMLInputElement> = inject(ElementRef);
-  @Input() fruits: string[] = []
-  @Output() tagsUpdated = new EventEmitter<string[]>()
 
-  announcer = inject(LiveAnnouncer);
+  selected(event: MatAutocompleteSelectedEvent): void {
+    // prevent the user from adding the same fruit twice
+    if (this.tagsList.includes(event.option.viewValue)) {
+      return;
+    }
 
-  constructor() {
-    this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
-      startWith(null),
-      map((fruit: string | null) => (fruit ? this._filter(fruit) : this.allFruits.slice())),
-    );
+    // add the selected fruit to the user's list of fruits
+    this.tagsList.push(event.option.viewValue);
+
+    // clear the user's input
+    this.fruitInput.nativeElement.value = '';
+    this.fruitCtrl.setValue(null);
+
+    // emit an event to notify the parent component that the list of fruits has changed
+    this.emitUpdates();
   }
 
   remove(fruit: string): void {
-    const index = this.fruits.indexOf(fruit);
+    // find the index of the fruit in the user's list of fruits
+    const index = this.tagsList.indexOf(fruit);
 
+    // if the fruit is in the list, remove it
     if (index >= 0) {
-      this.fruits.splice(index, 1);
-      this.announcer.announce(`Removed ${fruit}`);
+      this.tagsList.splice(index, 1);
+
     }
-    this.emitUpdatedData()
-  }
 
-  selected(event: MatAutocompleteSelectedEvent): void {
-    /* prevent repetition */
-    if (this.fruits.includes(event.option.viewValue)) {
-      return;
-    }
-    this.fruits.push(event.option.viewValue);
-    this.fruitInput.nativeElement.value = '';
-    this.fruitCtrl.setValue(null);
-    this.emitUpdatedData()
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.allFruits.filter(fruit => fruit.toLowerCase().includes(filterValue));
-  }
-
-  emitUpdatedData() {
-    this.tagsUpdated.emit(this.fruits)
+    // emit an event to notify the parent component that the list of fruits has changed
+    this.emitUpdates();
   }
 
   ngOnInit(): void {
-    this.fruitInput.nativeElement.focus();
   }
 }

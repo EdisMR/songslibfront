@@ -21,25 +21,25 @@
 			</mat-menu>
 
 			<mat-menu #misa="matMenu">
-				<ng-container *ngFor="let item of categories['misa']">
+				<ng-container *ngFor="let item of categories[0].subcategories">
 					<button mat-menu-item (click)="chooseOneCategory(item)">{{item | titlecase}}</button>
 				</ng-container>
 			</mat-menu>
 
 			<mat-menu #tiemLit="matMenu">
-				<ng-container *ngFor="let item of categories['tiempo liturgico']">
+				<ng-container *ngFor="let item of categories[1].subcategories">
 					<button mat-menu-item (click)="chooseOneCategory(item)">{{item | titlecase}}</button>
 				</ng-container>
 			</mat-menu>
 
 			<mat-menu #sacramentos="matMenu">
-				<ng-container *ngFor="let item of categories['sacramentos']">
+				<ng-container *ngFor="let item of categories[2].subcategories">
 					<button mat-menu-item (click)="chooseOneCategory(item)">{{item | titlecase}}</button>
 				</ng-container>
 			</mat-menu>
 
 			<mat-menu #santos="matMenu">
-				<ng-container *ngFor="let item of categories['santos']">
+				<ng-container *ngFor="let item of categories[3].subcategories">
 					<button mat-menu-item (click)="chooseOneCategory(item)">{{item | titlecase}}</button>
 				</ng-container>
 			</mat-menu>
