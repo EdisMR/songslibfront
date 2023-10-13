@@ -29,8 +29,7 @@ import { AboutComponent } from './pages/about/about.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { SongComponent } from './pages/song/song.component';
-import { UsersListComponent } from './pages/users-list/users-list.component';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 const MaterialImports = [
@@ -54,7 +53,6 @@ const MaterialImports = [
   declarations: [
     AppComponent,
     HomeComponent,
-    UsersListComponent,
     SongComponent,
     FooterComponent,
     SongInfoFormComponent,

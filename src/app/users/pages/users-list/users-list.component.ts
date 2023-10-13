@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { UsersInterface } from 'src/app/interfaces/users.interface';
-import { UsersService } from 'src/app/services/users.service';
+import { UsersInterface } from '../../interfaces/users.interface';
+import { UsersService } from '../../services/users.service';
+
 
 @Component({
   selector: 'app-users-list',
@@ -13,11 +14,11 @@ export class UsersListComponent implements OnInit, OnDestroy {
   constructor(
     private _fb: FormBuilder,
     private usersService: UsersService
-    ) {
-      this.idFormBuilder()
-      this.nameChangeFormBuilder()
-      this.emailChangeFormBuilder()
-      this.passChangeFormBuilder()
+  ) {
+    this.idFormBuilder()
+    this.nameChangeFormBuilder()
+    this.emailChangeFormBuilder()
+    this.passChangeFormBuilder()
   }
 
   public usersInfo: UsersInterface[] = []
@@ -27,10 +28,10 @@ export class UsersListComponent implements OnInit, OnDestroy {
   }
 
   private userSubscription: Subscription = this.usersService.usersList$
-  .subscribe((usersList) => {
-    this.usersInfo = usersList
-    this.userEditing = usersList[0] //! Implementar. Obtener el usuario desde url
-  })
+    .subscribe((usersList) => {
+      this.usersInfo = usersList
+      this.userEditing = usersList[0] //! Implementar. Obtener el usuario desde url
+    })
 
   public idForm!: FormGroup
   public idFormSubscription!: Subscription
@@ -46,48 +47,48 @@ export class UsersListComponent implements OnInit, OnDestroy {
       })
   }
 
-  public nameChangeForm!:FormGroup
+  public nameChangeForm!: FormGroup
   private nameChangeFormBuilder() {
     this.nameChangeForm = this._fb.group({
       newName: ['']
     })
   }
-  changeName(){}
+  changeName() { }
 
 
-  public emailChangeForm!:FormGroup
+  public emailChangeForm!: FormGroup
   private emailChangeFormBuilder() {
     this.emailChangeForm = this._fb.group({
       newEmail: ['']
     })
   }
-  changeEmail(){}
+  changeEmail() { }
 
 
 
-  public passChangeForm!:FormGroup
+  public passChangeForm!: FormGroup
   private passChangeFormBuilder() {
     this.passChangeForm = this._fb.group({
       oldPass: [''],
       newPass: [''],
-      newPassConfirm: ['',[Validators.required]]
+      newPassConfirm: ['', [Validators.required]]
     })
   }
-  changePass(){}
+  changePass() { }
 
 
-  deleteUser(){}
+  deleteUser() { }
 
   public get userActive(): boolean {
     return true
   }
-  switchActiveUser(){}
+  switchActiveUser() { }
 
 
-  logout(){}
+  logout() { }
 
-  createSong(){}
-  
+  createSong() { }
+
 
   ngOnInit(): void {
   }
