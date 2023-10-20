@@ -4,7 +4,7 @@ import { BehaviorSubject, EMPTY, Observable, catchError, map, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { LoaderService } from 'src/app/services/loader.service';
 import { environment } from 'src/app/environment/environment';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarService } from 'src/app/services/snackbar-svc.service';
 
 @Injectable()
 export class UsersService {
@@ -12,7 +12,7 @@ export class UsersService {
   constructor(
     private _http: HttpClient,
     private _loader: LoaderService,
-    private _snackBar: MatSnackBar,
+    private _snackBar: SnackbarService,
   ) { }
 
   private url: string = environment.api_url + '/users/'
@@ -36,9 +36,7 @@ export class UsersService {
         }),
         catchError((err) => {
           this._loader.hide()
-          this._snackBar.open('Error al solicitar USUARIOS', 'Ok',{
-            panelClass:['msg-error']
-          })
+          this._snackBar.error('Error al solicitar USUARIOS')
           return EMPTY
         }),
         tap(() => {
@@ -55,17 +53,12 @@ export class UsersService {
           if (resp.response_details.execution_result == false) {
             throw new Error(resp.response_details.message)
           }
-          this._snackBar.open('USUARIO creado', '', {
-            duration: 2000,
-            panelClass:['msg-success']
-          })
+          this._snackBar.success('USUARIO creado')
           return resp.data
         }),
         catchError((err) => {
           this._loader.hide()
-          this._snackBar.open('Error al crear USUARIO', 'Ok',{
-            panelClass:['msg-error']
-          })
+          this._snackBar.error('Error al crear USUARIO')
           return EMPTY
         }),
         tap(() => {
@@ -89,17 +82,12 @@ export class UsersService {
           if (resp.response_details.execution_result == false) {
             throw new Error(resp.response_details.message)
           }
-          this._snackBar.open('USUARIO modificado', '', {
-            duration: 2000,
-            panelClass:['msg-success']
-          })
+          this._snackBar.success('USUARIO modificado')
           return resp.data
         }),
         catchError((err) => {
           this._loader.hide()
-          this._snackBar.open('Error al modificar USUARIO', 'Ok',{
-            panelClass:['msg-error']
-          })
+          this._snackBar.error('Error al modificar USUARIO')
           return EMPTY
         }),
         tap(() => {
@@ -123,17 +111,12 @@ export class UsersService {
           if (resp.response_details.execution_result == false) {
             throw new Error(resp.response_details.message)
           }
-          this._snackBar.open('Email de USUARIO modificado', '', {
-            duration: 2000,
-            panelClass:['msg-success']
-          })
+          this._snackBar.success('Email de USUARIO modificado')
           return resp.data
         }),
         catchError((err) => {
           this._loader.hide()
-          this._snackBar.open('Error al modificar email', 'Ok',{
-            panelClass:['msg-error']
-          })
+          this._snackBar.error('Error al modificar email')
           return EMPTY
         }),
         tap(() => {
@@ -159,17 +142,12 @@ export class UsersService {
           if (resp.response_details.execution_result == false) {
             throw new Error(resp.response_details.message)
           }
-          this._snackBar.open('Contraseña modificada', '', {
-            duration: 2000,
-            panelClass:['msg-success']
-          })
+          this._snackBar.success('Contraseña modificada')
           return resp.data
         }),
         catchError((err) => {
           this._loader.hide()
-          this._snackBar.open('Error al modificar contraseña de USUARIO', 'Ok',{
-            panelClass:['msg-error']
-          })
+          this._snackBar.error('Error al modificar contraseña de USUARIO')
           return EMPTY
         }),
         tap(() => {
@@ -188,17 +166,12 @@ export class UsersService {
           if (resp.response_details.execution_result == false) {
             throw new Error(resp.response_details.message)
           }
-          this._snackBar.open('USUARIO eliminado', '', {
-            duration: 2000,
-            panelClass:['msg-success']
-          })
+          this._snackBar.success('USUARIO eliminado')
           return
         }),
         catchError((err) => {
           this._loader.hide()
-          this._snackBar.open('Error al eliminar USUARIO', 'Ok',{
-            panelClass:['msg-error']
-          })
+          this._snackBar.error('Error al eliminar USUARIO')
           return EMPTY
         }),
         tap(() => {
@@ -221,17 +194,12 @@ export class UsersService {
           if (resp.response_details.execution_result == false) {
             throw new Error(resp.response_details.message)
           }
-          this._snackBar.open('Usuario modificado', '', {
-            duration: 2000,
-            panelClass:['msg-success']
-          })
+          this._snackBar.success('Usuario modificado')
           return resp.data
         }),
         catchError((err) => {
           this._loader.hide()
-          this._snackBar.open('Error al modificar USUARIO', 'Ok',{
-            panelClass:['msg-error']
-          })
+          this._snackBar.error('Error al modificar USUARIO')
           return EMPTY
         }),
         tap(() => {

@@ -14,6 +14,7 @@ import { IdFormComponent } from './components/id-form/id-form.component';
 import { UsernameFormComponent } from './components/username-form/username-form.component';
 import { EmailFormComponent } from './components/email-form/email-form.component';
 import { PassFormComponent } from './components/pass-form/pass-form.component';
+import { SnackbarService } from '../services/snackbar-svc.service';
 
 const MaterialImports = [
   MatInputModule,
@@ -39,7 +40,8 @@ const MaterialImports = [
     MaterialImports
   ],
   providers:[
-    UsersService
+    UsersService,
+    SnackbarService
   ]
 })
 export class UsersModule { }

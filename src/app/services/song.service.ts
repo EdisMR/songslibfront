@@ -6,6 +6,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from '../environment/environment';
 import { RespGetAllSongs, RespPatchSong, songInterface } from '../interfaces/song.interface';
 import { LoaderService } from './loader.service';
+import { SnackbarService } from './snackbar-svc.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +14,7 @@ export class SongService {
 
   constructor(
     private _http: HttpClient,
-    private _snackBar: MatSnackBar,
+    private _snackBar: SnackbarService,
     private _loader: LoaderService
   ) { }
   variables = {
@@ -42,9 +43,7 @@ export class SongService {
         }),
         catchError((err) => {
           this._loader.hide()
-          this._snackBar.open('Error al solicitar la música','Ok',{
-            panelClass:['msg-error']
-          })
+          this._snackBar.error('Error al solicitar la música')
           return EMPTY
         }),
         tap(() => {
@@ -63,17 +62,12 @@ export class SongService {
         if(resp.response_details.execution_result==false){
           throw new Error(resp.response_details.message)
         }
-        this._snackBar.open('Error al consultar la base de datos','',{
-          duration:500,
-          panelClass:['msg-success']
-        })
+        this._snackBar.success('Canción actualizada')
         return resp.data
       }),
       catchError((err) => {
         this._loader.hide()
-        this._snackBar.open('Error al consultar la base de datos','Ok',{
-          panelClass:['msg-error']
-        })
+        this._snackBar.error('Error al consultar la base de datos')
         return EMPTY
       }),
       tap(() => {
