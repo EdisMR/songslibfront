@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { UsersInterface } from '../../interfaces/users.interface';
@@ -16,20 +16,39 @@ export class IdFormComponent implements OnDestroy {
     this.idFormBuilder();
   }
 
+  
+  @Input('users') set users(users:UsersInterface[]){
+    this.usersInfo=users;
+    this.idFormBuilder();
+  }
+  @Output() userIdSelected = new EventEmitter<string>();
+  @Output() createNewUser = new EventEmitter<void>();
+
   public usersInfo: UsersInterface[] = []
 
   public idForm!: FormGroup
   public idFormSubscription!: Subscription
   private idFormBuilder() {
     this.idForm = this._fb.group({
-      //! Implementar. Obtener el id desde la url
       idControl: []
     })
     this.idFormSubscription = this.idForm.valueChanges
       .subscribe((value) => {
-        //! Implementar. redireccion a la ruta /users/:id
-        console.log(value)
+        this.selectUser()
       })
+  }
+  private get idControl(){
+    return this.idForm.value.idControl
+  }
+
+  createUser(){
+    this.createNewUser.emit()
+  }
+
+  selectUser(){
+    if(this.idControl){
+      this.userIdSelected.emit(this.idForm.value.idControl)
+    }
   }
 
   ngOnDestroy(): void {

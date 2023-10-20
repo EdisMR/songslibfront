@@ -61,6 +61,9 @@ export class UsersService {
     return this.usersList$
   }
 
+  public createUser():void{
+  }
+
 
   public changeEmail(params: {
     id: string,

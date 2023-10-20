@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { UsersInterface } from '../../interfaces/users.interface';
 import { UsersService } from '../../services/users.service';
@@ -12,7 +11,6 @@ import { UsersService } from '../../services/users.service';
 })
 export class UsersListComponent implements OnInit, OnDestroy {
   constructor(
-    private _fb: FormBuilder,
     private usersService: UsersService
   ) {
   }
@@ -30,15 +28,18 @@ export class UsersListComponent implements OnInit, OnDestroy {
     })
 
 
+  selectUser(userIdSelected: string) {
+    console.log({'User selected':userIdSelected})
+  }
+
+  createUser() {
+    console.log('Create user request')
+  }
 
 
-
-
-  
-
-
-
-  
+  changeUsername(newName:string){
+    console.log({'new name':newName})
+  }
 
 
   deleteUser() { }
@@ -51,11 +52,12 @@ export class UsersListComponent implements OnInit, OnDestroy {
 
   logout() { }
 
+
+
+
   createSong() { }
 
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   ngOnDestroy(): void {
     this.userSubscription.unsubscribe()

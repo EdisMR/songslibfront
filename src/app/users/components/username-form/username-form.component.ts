@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -12,11 +12,21 @@ export class UsernameFormComponent {
   ){
     this.nameChangeFormBuilder()
   }
+
+  @Input('username') set username(username:string){
+    this.usernameSource=username
+    this.nameChangeFormBuilder()
+  }
+  @Output() changeUsername=new EventEmitter<string>
+
+  private usernameSource:string=''
   public nameChangeForm!: FormGroup
   private nameChangeFormBuilder() {
     this.nameChangeForm = this._fb.group({
-      newName: ['']
+      newName: [this.usernameSource]
     })
   }
-  changeName() { }
+  changeName() {
+    this.changeUsername.emit(this.nameChangeForm.value.newName)
+  }
 }

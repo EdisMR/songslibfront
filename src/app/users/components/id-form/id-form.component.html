@@ -6,6 +6,9 @@
 				<mat-option *ngFor="let user of usersInfo" [value]="user.public_id">
 					{{user.public_id}}
 				</mat-option>
+				<mat-option (click)="createUser()">
+					Nuevo Usuario
+				</mat-option>
 			</mat-select>
 		</mat-form-field>
 	</div>

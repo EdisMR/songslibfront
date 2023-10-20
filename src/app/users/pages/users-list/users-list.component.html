@@ -2,7 +2,7 @@
 	<section class="main-content">
 
 
-		<app-id-form></app-id-form>
+		<app-id-form [users]="usersInfo" (createNewUser)="createUser()" (userIdSelected)="selectUser($event)"></app-id-form>
 
 		<div class="display-user-info">
 			<h2>
@@ -19,7 +19,7 @@
 		</div>
 
 
-		<app-username-form></app-username-form>
+		<app-username-form [username]="userEditing.username" (changeUsername)="changeUsername($event)"></app-username-form>
 
 
 
