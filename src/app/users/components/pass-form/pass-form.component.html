@@ -1,0 +1,33 @@
+<div class="form-container">
+	<div>
+		<strong>Cambiar Contraseña</strong>
+	</div>
+	<div [formGroup]="passChangeForm">
+		<mat-form-field>
+			<mat-label>Antigua contraseña</mat-label>
+			<input matInput #oldP formControlName="oldPass" type="password">
+			<button mat-icon-button matSuffix [matTooltip]="oldP.type == 'password' ? 'Show' : 'Hide'"
+				(click)="oldP.type = oldP.type == 'password' ? 'text' : 'password'">
+				<mat-icon>{{oldP.type == 'password' ? 'visibility_off' : 'visibility'}}</mat-icon>
+			</button>
+		</mat-form-field>
+		<mat-form-field>
+			<mat-label>Nueva contraseña</mat-label>
+			<input matInput formControlName="newPass" type="password" #newP>
+			<button mat-icon-button matSuffix [matTooltip]="newP.type == 'password' ? 'Show' : 'Hide'"
+				(click)="newP.type = newP.type == 'password' ? 'text' : 'password'">
+				<mat-icon>{{newP.type == 'password' ? 'visibility_off' : 'visibility'}}</mat-icon>
+			</button>
+		</mat-form-field>
+		<mat-form-field>
+			<mat-label>Confirmar Nueva contraseña</mat-label>
+			<input matInput formControlName="newPassConfirm" type="password" #confirmP>
+			<button mat-icon-button matSuffix [matTooltip]="confirmP.type == 'password' ? 'Show' : 'Hide'"
+				(click)="confirmP.type = confirmP.type == 'password' ? 'text' : 'password'">
+				<mat-icon>{{confirmP.type == 'password' ? 'visibility_off' : 'visibility'}}</mat-icon>
+			</button>
+		</mat-form-field>
+		<button mat-raised-button (click)="changePass()">Proceder</button>
+
+	</div>
+</div>

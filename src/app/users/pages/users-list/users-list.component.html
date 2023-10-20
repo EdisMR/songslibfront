@@ -2,18 +2,7 @@
 	<section class="main-content">
 
 
-		<div class="form-container">
-			<div [formGroup]="idForm">
-				<mat-form-field>
-					<mat-label>ID Público</mat-label>
-					<mat-select formControlName="idControl">
-						<mat-option *ngFor="let user of usersInfo" [value]="user.public_id">
-							{{user.public_id}}
-						</mat-option>
-					</mat-select>
-				</mat-form-field>
-			</div>
-		</div>
+		<app-id-form></app-id-form>
 
 		<div class="display-user-info">
 			<h2>
@@ -30,71 +19,15 @@
 		</div>
 
 
-		<div class="form-container">
-			<div>
-				<strong>Cambiar Nombre de Usuario</strong>
-			</div>
-			<div [formGroup]="nameChangeForm">
-				<mat-form-field>
-					<mat-label>Nuevo nombre de usuario</mat-label>
-					<input matInput formControlName="newName">
-				</mat-form-field>
-				<button mat-raised-button (click)="changeName()">Proceder</button>
-
-			</div>
-		</div>
+		<app-username-form></app-username-form>
 
 
 
-		<div class="form-container">
-			<div>
-				<strong>Cambiar Email</strong>
-			</div>
-			<div [formGroup]="emailChangeForm">
-				<mat-form-field>
-					<mat-label>Nuevo email</mat-label>
-					<input matInput formControlName="newEmail">
-				</mat-form-field>
-				<button mat-raised-button (click)="changeEmail()">Proceder</button>
-
-			</div>
-		</div>
+		<app-email-form></app-email-form>
 
 
 
-		<div class="form-container">
-			<div>
-				<strong>Cambiar Contraseña</strong>
-			</div>
-			<div [formGroup]="passChangeForm">
-				<mat-form-field>
-					<mat-label>Antigua contraseña</mat-label>
-					<input matInput #oldP formControlName="oldPass" type="password">
-					<button mat-icon-button matSuffix [matTooltip]="oldP.type == 'password' ? 'Show' : 'Hide'"
-						(click)="oldP.type = oldP.type == 'password' ? 'text' : 'password'">
-						<mat-icon>{{oldP.type == 'password' ? 'visibility_off' : 'visibility'}}</mat-icon>
-					</button>
-				</mat-form-field>
-				<mat-form-field>
-					<mat-label>Nueva contraseña</mat-label>
-					<input matInput formControlName="newPass" type="password" #newP>
-					<button mat-icon-button matSuffix [matTooltip]="newP.type == 'password' ? 'Show' : 'Hide'"
-						(click)="newP.type = newP.type == 'password' ? 'text' : 'password'">
-						<mat-icon>{{newP.type == 'password' ? 'visibility_off' : 'visibility'}}</mat-icon>
-					</button>
-				</mat-form-field>
-				<mat-form-field>
-					<mat-label>Confirmar Nueva contraseña</mat-label>
-					<input matInput formControlName="newPassConfirm" type="password" #confirmP>
-					<button mat-icon-button matSuffix [matTooltip]="confirmP.type == 'password' ? 'Show' : 'Hide'"
-						(click)="confirmP.type = confirmP.type == 'password' ? 'text' : 'password'">
-						<mat-icon>{{confirmP.type == 'password' ? 'visibility_off' : 'visibility'}}</mat-icon>
-					</button>
-				</mat-form-field>
-				<button mat-raised-button (click)="changePass()">Proceder</button>
-
-			</div>
-		</div>
+		<app-pass-form></app-pass-form>
 
 
 		<div class="other-actions">

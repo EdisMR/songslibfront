@@ -15,10 +15,6 @@ export class UsersListComponent implements OnInit, OnDestroy {
     private _fb: FormBuilder,
     private usersService: UsersService
   ) {
-    this.idFormBuilder()
-    this.nameChangeFormBuilder()
-    this.emailChangeFormBuilder()
-    this.passChangeFormBuilder()
   }
 
   public usersInfo: UsersInterface[] = []
@@ -33,48 +29,16 @@ export class UsersListComponent implements OnInit, OnDestroy {
       this.userEditing = usersList[0] //! Implementar. Obtener el usuario desde url
     })
 
-  public idForm!: FormGroup
-  public idFormSubscription!: Subscription
-  private idFormBuilder() {
-    this.idForm = this._fb.group({
-      //! Implementar. Obtener el id desde la url
-      idControl: [this.userEditing.public_id]
-    })
-    this.idFormSubscription = this.idForm.valueChanges
-      .subscribe((value) => {
-        //! Implementar. redireccion a la ruta /users/:id
-        console.log(value)
-      })
-  }
-
-  public nameChangeForm!: FormGroup
-  private nameChangeFormBuilder() {
-    this.nameChangeForm = this._fb.group({
-      newName: ['']
-    })
-  }
-  changeName() { }
-
-
-  public emailChangeForm!: FormGroup
-  private emailChangeFormBuilder() {
-    this.emailChangeForm = this._fb.group({
-      newEmail: ['']
-    })
-  }
-  changeEmail() { }
 
 
 
-  public passChangeForm!: FormGroup
-  private passChangeFormBuilder() {
-    this.passChangeForm = this._fb.group({
-      oldPass: [''],
-      newPass: [''],
-      newPassConfirm: ['', [Validators.required]]
-    })
-  }
-  changePass() { }
+
+
+  
+
+
+
+  
 
 
   deleteUser() { }
@@ -94,7 +58,6 @@ export class UsersListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.idFormSubscription.unsubscribe()
     this.userSubscription.unsubscribe()
   }
 

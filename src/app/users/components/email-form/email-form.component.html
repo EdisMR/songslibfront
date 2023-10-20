@@ -1,0 +1,13 @@
+<div class="form-container">
+	<div>
+		<strong>Cambiar Email</strong>
+	</div>
+	<div [formGroup]="emailChangeForm">
+		<mat-form-field>
+			<mat-label>Nuevo email</mat-label>
+			<input matInput formControlName="newEmail">
+		</mat-form-field>
+		<button mat-raised-button (click)="changeEmail()">Proceder</button>
+
+	</div>
+</div>

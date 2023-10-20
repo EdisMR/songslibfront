@@ -10,6 +10,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { UsersRoutingModule } from './users-routing.module';
 import { MatButtonModule } from '@angular/material/button';
 import { UsersService } from './services/users.service';
+import { IdFormComponent } from './components/id-form/id-form.component';
+import { UsernameFormComponent } from './components/username-form/username-form.component';
+import { EmailFormComponent } from './components/email-form/email-form.component';
+import { PassFormComponent } from './components/pass-form/pass-form.component';
 
 const MaterialImports = [
   MatInputModule,
@@ -21,7 +25,11 @@ const MaterialImports = [
 
 @NgModule({
   declarations: [
-    UsersListComponent
+    UsersListComponent,
+    IdFormComponent,
+    UsernameFormComponent,
+    EmailFormComponent,
+    PassFormComponent
   ],
   imports: [
     CommonModule,

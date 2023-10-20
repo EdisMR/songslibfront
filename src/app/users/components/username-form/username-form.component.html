@@ -1,0 +1,13 @@
+<div class="form-container">
+	<div>
+		<strong>Cambiar Nombre de Usuario</strong>
+	</div>
+	<div [formGroup]="nameChangeForm">
+		<mat-form-field>
+			<mat-label>Nuevo nombre de usuario</mat-label>
+			<input matInput formControlName="newName">
+		</mat-form-field>
+		<button mat-raised-button (click)="changeName()">Proceder</button>
+
+	</div>
+</div>

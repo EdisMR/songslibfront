@@ -1,0 +1,12 @@
+<div class="form-container">
+	<div [formGroup]="idForm">
+		<mat-form-field>
+			<mat-label>ID Público</mat-label>
+			<mat-select formControlName="idControl">
+				<mat-option *ngFor="let user of usersInfo" [value]="user.public_id">
+					{{user.public_id}}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+	</div>
+</div>
