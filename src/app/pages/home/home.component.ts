@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, debounceTime } from 'rxjs';
 import { categoriesListEnv } from 'src/app/environment/environment';
 import { categoriesInterface } from 'src/app/interfaces/categories.interface';
 import { songInterface } from 'src/app/interfaces/song.interface';
@@ -16,77 +16,71 @@ export class HomeComponent implements OnDestroy {
     private _fb: FormBuilder,
     private _activatedRoute: ActivatedRoute,
   ) {
-    this._activatedRoute.data.subscribe(data=>{
-      this.songsListSource=data['songs']
-      this.buildForm()
-      this.filterData()
+    this._activatedRoute.data.subscribe(data => {
+      this.songsListSource = data['songs']
+      this.songsListFiltered = data['songs']
+      this.buildFormSearch();
+      this.formFilterDataBuilder()
     })
   }
 
   public songsListSource: songInterface[] = []
   public songsListFiltered: songInterface[] = []
   public categories: categoriesInterface[] = categoriesListEnv
+  public searchTerm: string = ''
 
-  public get resultsFrom(): string {
-    let resultsFrom = ''
-    if (this.searchterm.length >= 4) {
-      resultsFrom = this.searchterm
-    }
-    if (this.choosenCategory.length > 0) {
-      resultsFrom = this.choosenCategory
-    }
-    return resultsFrom
+
+  public formFilterData!: FormGroup
+  private formFilterDataSubscription!: Subscription
+  private formFilterDataBuilder(): void {
+    this.formFilterData = this._fb.group({
+      tag: ['']
+    })
+    this.formFilterDataSubscription = this.formFilterData.valueChanges.subscribe(data => {
+      this.formSearchDeactivator()
+      this.searchTerm = data.tag
+      this.filterData()
+    })
+  }
+  private formFilterDeactivator() {
+    this.formFilterDataSubscription?.unsubscribe();
+    this.formFilterData.reset()
+    this.formFilterDataBuilder()
   }
 
-  choosenCategory = ''
-  chooseOneCategory(categorySelected: string, preventSearchProblem?: boolean) {
-    if (!preventSearchProblem) {
-      this.formSearch.reset()
-    }
-    this.choosenCategory = categorySelected
-    this.songsListFiltered = []
-    this.filterData()
-  }
 
-
-  filterData() {
-    let songsLength: number = this.songsListSource.length
-    this.songsListFiltered = []
-    for (let i = 0; i < songsLength; i++) {
-      if (this.choosenCategory.length > 0) {
-        if (this.songsListSource[i].categories.includes(this.choosenCategory)) {
-          this.songsListFiltered.push(this.songsListSource[i])
-        }
-      }
-      if (this.searchterm.length >= 4) {
-        if (((this.songsListSource[i].title).toLocaleLowerCase()).includes((this.searchterm).toLocaleLowerCase())) {
-          this.songsListFiltered.push(this.songsListSource[i])
-        }
-      }
-    }
-    if (this.searchterm.length < 4 && this.choosenCategory.length == 0) {
-      this.songsListFiltered = this.songsListSource
-    }
-  }
-
-  /* form */
   public formSearch!: FormGroup
   private formSearchSubscription!: Subscription
-  private buildForm() {
+  private buildFormSearch() {
     this.formSearch = this._fb.group({
       searchterm: ['']
     })
     this.formSearchSubscription = this.formSearch.valueChanges
+      .pipe(debounceTime(500))
       .subscribe(data => {
-        this.chooseOneCategory('', true)
+        this.formFilterDeactivator()
+        this.searchTerm = data.searchterm
         this.filterData()
       })
   }
-  public get searchterm() {
-    return this.formSearch.get('searchterm')?.value || ''
+  private formSearchDeactivator() {
+    this.formSearchSubscription?.unsubscribe()
+    this.formSearch.reset()
+    this.buildFormSearch()
   }
 
+
+  private filterData() {
+    this.songsListFiltered = this.songsListSource.filter(song => {
+      const titleMatch = song.title.toLowerCase().includes(this.searchTerm.toLowerCase());
+      const tagsMatch = song.categories.some(tag => tag.toLowerCase().includes(this.searchTerm.toLowerCase()));
+      return titleMatch || tagsMatch;
+    });
+  }
+
+
   ngOnDestroy(): void {
-    this.formSearchSubscription.unsubscribe()
+    this.formSearchSubscription?.unsubscribe()
+    this.formFilterDataSubscription?.unsubscribe()
   }
 }

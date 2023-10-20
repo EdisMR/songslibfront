@@ -10,43 +10,23 @@
 			</form>
 		</div>
 
-		<div>
-			<button mat-button [matMenuTriggerFor]="category">Categoría</button>
-			<mat-menu #category="matMenu">
-				<button mat-menu-item (click)="chooseOneCategory('')">Todos</button>
-				<button mat-menu-item [matMenuTriggerFor]="misa">Misa</button>
-				<button mat-menu-item [matMenuTriggerFor]="tiemLit">Tiempo Litúrgico</button>
-				<button mat-menu-item [matMenuTriggerFor]="sacramentos">Sacramentos</button>
-				<button mat-menu-item [matMenuTriggerFor]="santos">Santos</button>
-			</mat-menu>
-
-			<mat-menu #misa="matMenu">
-				<ng-container *ngFor="let item of categories[0].subcategories">
-					<button mat-menu-item (click)="chooseOneCategory(item)">{{item | titlecase}}</button>
-				</ng-container>
-			</mat-menu>
-
-			<mat-menu #tiemLit="matMenu">
-				<ng-container *ngFor="let item of categories[1].subcategories">
-					<button mat-menu-item (click)="chooseOneCategory(item)">{{item | titlecase}}</button>
-				</ng-container>
-			</mat-menu>
-
-			<mat-menu #sacramentos="matMenu">
-				<ng-container *ngFor="let item of categories[2].subcategories">
-					<button mat-menu-item (click)="chooseOneCategory(item)">{{item | titlecase}}</button>
-				</ng-container>
-			</mat-menu>
-
-			<mat-menu #santos="matMenu">
-				<ng-container *ngFor="let item of categories[3].subcategories">
-					<button mat-menu-item (click)="chooseOneCategory(item)">{{item | titlecase}}</button>
-				</ng-container>
-			</mat-menu>
+		<div class="formFilter" [formGroup]="formFilterData">
+			<mat-form-field>
+				<mat-label>Categoría</mat-label>
+				<mat-select formControlName="tag">
+					<mat-option value="">-- Todos --</mat-option>
+					<mat-optgroup *ngFor="let group of categories" [label]="group.name">
+						<mat-option *ngFor="let tag of group.subcategories" [value]="tag">
+							{{tag}}
+						</mat-option>
+					</mat-optgroup>
+				</mat-select>
+			</mat-form-field>
 		</div>
+
 	</div>
-	<ng-container *ngIf="resultsFrom.length>0">
-		<div class="results-search-from"><span>Resultados: {{resultsFrom | titlecase}}</span></div>
+	<ng-container *ngIf="searchTerm.length>0">
+		<div class="results-search-from"><span>Resultados: {{searchTerm | titlecase}}</span></div>
 	</ng-container>
 </div>
 
