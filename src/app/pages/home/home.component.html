@@ -35,8 +35,8 @@
 
 <section class="songs-list">
 	<ng-container *ngFor="let song of songsListFiltered">
-		<mat-card class="card" mat-ripple>
-			<mat-card-header [routerLink]="['','song',song.public_id]" class="link-cursor">
+		<mat-card class="card" mat-ripple [routerLink]="['','song',song.public_id]">
+			<mat-card-header class="link-cursor">
 				<mat-card-title class="song-title">
 					<span>{{song.linkstring}} - {{song.title}}</span>
 				</mat-card-title>
@@ -53,7 +53,9 @@
 		</mat-card>
 	</ng-container>
 	<ng-container *ngIf="songsListFiltered.length==0">
-		<span>----  Ninguno  ----</span>
+		<div style="text-align: center;">
+			<span>----  Ninguno  ----</span>
+		</div>
 	</ng-container>
 </section>
 
