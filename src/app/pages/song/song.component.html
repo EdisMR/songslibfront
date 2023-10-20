@@ -8,8 +8,8 @@
 
 		<div class="songInfoDisplayer" *ngIf="!isAdmin">
 			<h1>
-				<div class="songInfoDisplayer__title">
-					<span>Titulo: </span>
+				<div class="songInfoDisplayer__title" (click)="copyLinkstring()">
+					<span>{{song.linkstring}} - </span>
 					<span *ngIf="song.title">{{song.title}}</span>
 					<span *ngIf="!song.title"><i>-----</i></span>
 				</div>

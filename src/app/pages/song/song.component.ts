@@ -20,7 +20,7 @@ export class SongComponent implements OnDestroy {
   }
 
   song: songInterface = {} as songInterface
-  isAdmin: boolean = true;
+  isAdmin: boolean = false;
 
   updateNowSongInfo() {
     this._songSvc.updateSong(this.song)
@@ -53,6 +53,13 @@ export class SongComponent implements OnDestroy {
 
   public get staticFilesDir() {
     return environment.static_files_dir
+  }
+
+  copyLinkstring(){
+    window.navigator.share({
+      text: `${this.song.linkstring} - ${this.song.title}`,
+      url:window.location.href
+    })
   }
 
   updatedSong(songInfo: songInterface) {
