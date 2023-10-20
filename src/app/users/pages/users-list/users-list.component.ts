@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { EMPTY, Subscription } from 'rxjs';
 import { UsersInterface } from '../../interfaces/users.interface';
 import { UsersService } from '../../services/users.service';
 
@@ -13,6 +13,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
   constructor(
     private usersService: UsersService
   ) {
+    this.getAllUsers()
   }
 
   public usersInfo: UsersInterface[] = []
@@ -21,6 +22,21 @@ export class UsersListComponent implements OnInit, OnDestroy {
     return false
   }
 
+
+  private getAllUsers(params?: {
+    newUserRedirection: boolean,
+    userIdRedirection: string
+  }) {
+    this.usersService.allUsers$().subscribe(users => {
+      this.usersInfo = users
+      if (params?.newUserRedirection) {
+        this.selectUser(params.userIdRedirection)
+      }
+    })
+  }
+
+
+
   private userSubscription: Subscription = this.usersService.usersList$
     .subscribe((usersList) => {
       this.usersInfo = usersList
@@ -28,45 +44,104 @@ export class UsersListComponent implements OnInit, OnDestroy {
 
 
   selectUser(userIdSelected: string) {
-    console.log({'User selected':userIdSelected})
-  }
-
-  modifyPass(data:{
-    oldPass: string,
-    newPass: string,
-    newPassConfirm: string
-  }){
-    console.log({
-      oldPass: data.oldPass,
-      newPass: data.newPass,
-      newPassConfirm: data.newPassConfirm
+    console.log({ 'User selected': userIdSelected })
+    let index: number = this.usersInfo.findIndex((e: UsersInterface) => {
+      return e.public_id == userIdSelected
     })
+    this.userEditing = this.usersInfo[index]
   }
 
   createUser() {
-    console.log('Create user request')
+    this.usersService.createUser().subscribe(user => {
+      this.getAllUsers({
+        newUserRedirection: true,
+        userIdRedirection: user.public_id
+      })
+    })
   }
 
 
-  changeUsername(newName:string){
-    console.log({'new name':newName})
+
+  changeUsername(newName: string) {
+    this.usersService.changeUsername({
+      id: this.userEditing.public_id,
+      newUsername: newName
+    }).subscribe(user => {
+      this.getAllUsers({
+        newUserRedirection: true,
+        userIdRedirection: user.public_id
+      })
+    })
   }
 
-  changeEmail(newEmail:string){
-    console.log({'new email':newEmail})
+
+
+  changeEmail(newEmailR: string) {
+    this.usersService.changeEmail({
+      id: this.userEditing.public_id,
+      newEmail: newEmailR
+    }).subscribe(user => {
+      this.getAllUsers({
+        newUserRedirection: true,
+        userIdRedirection: user.public_id
+      })
+    })
   }
 
 
-  deleteUser() { }
+  modifyPass(data: {
+    oldPass: string,
+    newPass: string,
+  }) {
+    this.usersService.changePassword({
+      id: this.userEditing.public_id,
+      newPassword: data.newPass,
+      oldPassword: data.oldPass
+    }).subscribe(user => {
+      this.getAllUsers({
+        newUserRedirection: true,
+        userIdRedirection: user.public_id
+      })
+    })
+  }
+
+
+
+  deleteUser() {
+    let deleteQuestion = window.confirm('¿Desea eliminar este usuario?')
+    if(deleteQuestion){
+      this.usersService.deleteUser(this.userEditing.public_id).subscribe(e => {
+        this.userEditing = {
+          active:false,
+          date_created:new Date(),
+          date_updated:new Date(),
+          email:'',
+          public_id:'',
+          username:''
+        }
+        this.getAllUsers()
+      })
+    }
+  }
 
   public get userActive(): boolean {
-    return true
+    return this.userEditing.active
   }
-  switchActiveUser() { }
+  switchActiveUser() {
+    this.usersService.changeActive({
+      id: this.userEditing.public_id,
+      newActive: !this.userActive
+    }).subscribe(user => {
+      this.getAllUsers({
+        newUserRedirection: true,
+        userIdRedirection: user.public_id
+      })
+    })
+  }
+
 
 
   logout() { }
-
 
 
 

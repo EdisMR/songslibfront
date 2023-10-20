@@ -21,16 +21,21 @@ export class IdFormComponent implements OnDestroy {
     this.usersInfo=users;
     this.idFormBuilder();
   }
+  @Input('currentSelected') set currentSelected(currentSelected:string){
+    this.currentSelectedSource=currentSelected
+    this.idFormBuilder();
+  }
   @Output() userIdSelected = new EventEmitter<string>();
   @Output() createNewUser = new EventEmitter<void>();
 
   public usersInfo: UsersInterface[] = []
+  private currentSelectedSource:string=''
 
   public idForm!: FormGroup
   public idFormSubscription!: Subscription
   private idFormBuilder() {
     this.idForm = this._fb.group({
-      idControl: []
+      idControl: [this.currentSelectedSource]
     })
     this.idFormSubscription = this.idForm.valueChanges
       .subscribe((value) => {

@@ -16,3 +16,23 @@ export interface RespGetAllUsers {
 	};
 	data: UsersInterface[]
 }
+
+export interface RespCreateUserInterface {
+	response_details: {
+		execution_result: boolean;
+		message: string;
+		code: number;
+		params: {};
+	};
+	data: UsersInterface
+}
+
+export interface RespNoDataInterface {
+	response_details: {
+		execution_result: boolean;
+		message: string;
+		code: number;
+		params: {};
+	};
+	data: {}
+}

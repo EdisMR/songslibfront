@@ -2,7 +2,7 @@
 	<section class="main-content">
 
 
-		<app-id-form [users]="usersInfo" (createNewUser)="createUser()" (userIdSelected)="selectUser($event)"></app-id-form>
+		<app-id-form [currentSelected]="userEditing.public_id" [users]="usersInfo" (createNewUser)="createUser()" (userIdSelected)="selectUser($event)"></app-id-form>
 
 		<div class="display-user-info">
 			<h2>
@@ -27,7 +27,7 @@
 
 
 
-		<app-pass-form (newPassRequest)="modifyPass($event)"></app-pass-form>
+		<app-pass-form [changes]="userEditing.public_id" (newPassRequest)="modifyPass($event)"></app-pass-form>
 
 
 		<div class="other-actions">
@@ -41,7 +41,7 @@
 					</button>
 				</div>
 				<div class="control-item">
-					<button mat-raised-button (click)="switchActiveUser()" color="warn">
+					<button mat-raised-button (click)="switchActiveUser()" [color]="userActive?'warn':'primary'">
 						<span *ngIf="!userActive">Activar perfil</span>
 						<span *ngIf="userActive">Desactivar perfil</span>
 					</button>

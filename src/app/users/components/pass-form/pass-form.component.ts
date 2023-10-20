@@ -18,11 +18,14 @@ export class PassFormComponent {
     newPass: string,
     newPassConfirm: string
   }>
+  @Input('changes') set changes(changes:string){
+    this.passChangeForm.reset()
+  }
 
   public passChangeForm!: FormGroup
   private passChangeFormBuilder() {
     this.passChangeForm = this._fb.group({
-      oldPass: ['', [Validators.required]],
+      oldPass: ['', []],
       newPass: ['', [Validators.required]],
       newPassConfirm: ['', [Validators.required]]
     })
@@ -30,9 +33,9 @@ export class PassFormComponent {
 
   changePass() {
     this.newPassRequest.emit({
-      newPass: this.passChangeForm.value.newPass,
-      newPassConfirm: this.passChangeForm.value.newPassConfirm,
-      oldPass: this.passChangeForm.value.oldPass,
+      newPass: this.passChangeForm.value.newPass||'',
+      newPassConfirm: this.passChangeForm.value.newPassConfirm||'',
+      oldPass: this.passChangeForm.value.oldPass||'',
     })
   }
 }

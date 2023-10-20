@@ -33,12 +33,18 @@ export class SongService {
       return this._http.get<RespGetAllSongs>(this.variables.api_songs)
       .pipe(
         map((resp) => {
+          if(resp.response_details.execution_result==false){
+            throw new Error(resp.response_details.message)
+          }
           this.allSongsSource = resp.data
           this.allSongsExposer.next(this.allSongsSource)
           return this.allSongsSource
         }),
         catchError((err) => {
-          this._snackBar.open('Error al consultar la base de datos')
+          this._loader.hide()
+          this._snackBar.open('Error al solicitar la música','Ok',{
+            panelClass:['msg-error']
+          })
           return EMPTY
         }),
         tap(() => {
@@ -54,19 +60,26 @@ export class SongService {
     return this._http.patch<RespPatchSong>(this.variables.api_songs+'/'+song.public_id, song)
     .pipe(
       map((resp) => {
+        if(resp.response_details.execution_result==false){
+          throw new Error(resp.response_details.message)
+        }
+        this._snackBar.open('Error al consultar la base de datos','',{
+          duration:500,
+          panelClass:['msg-success']
+        })
         return resp.data
       }),
       catchError((err) => {
-        this._snackBar.open('Error al consultar la base de datos')
+        this._loader.hide()
+        this._snackBar.open('Error al consultar la base de datos','Ok',{
+          panelClass:['msg-error']
+        })
         return EMPTY
       }),
       tap(() => {
         this._loader.hide()
         let itemToUpdate= this.allSongsSource.findIndex((item) => item.public_id === song.public_id)
         this.allSongsSource[itemToUpdate] = song
-        this._snackBar.open('Actualizado','',{
-          duration: 500
-        })
       })
     )
   }

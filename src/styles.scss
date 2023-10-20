@@ -55,6 +55,22 @@ a {
 	margin-bottom: 50px;
 }
 
+
+.msg-error *{
+	background-color: rgb(185, 17, 17) !important;
+	color: white !important;
+}
+
+.msg-success *{
+	background-color: rgb(12, 102, 17) !important;
+	color: white !important;
+}
+
+.msg-warn *{
+	background-color: rgb(255, 174, 54) !important;
+	color: black !important;
+}
+
 @media (max-width: 768px) {
 	.main-content-container {
 		justify-content: center;
