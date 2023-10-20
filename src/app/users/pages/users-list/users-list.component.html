@@ -23,7 +23,7 @@
 
 
 
-		<app-email-form></app-email-form>
+		<app-email-form [email]="userEditing.email" (emailChanged)="changeEmail($event)"></app-email-form>
 
 
 

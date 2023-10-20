@@ -41,6 +41,10 @@ export class UsersListComponent implements OnInit, OnDestroy {
     console.log({'new name':newName})
   }
 
+  changeEmail(newEmail:string){
+    console.log({'new email':newEmail})
+  }
+
 
   deleteUser() { }
 

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-email-form',
@@ -12,11 +12,25 @@ export class EmailFormComponent {
   ) {
     this.emailChangeFormBuilder();
   }
+
+  @Input('email') set email(email:string){
+    this.emailSource=email
+    this.emailChangeFormBuilder()
+  }
+  @Output() emailChanged=new EventEmitter<string>
+
+  private emailSource:string=''
   public emailChangeForm!: FormGroup
   private emailChangeFormBuilder() {
     this.emailChangeForm = this._fb.group({
-      newEmail: ['']
+      newEmail: [this.emailSource,Validators.email]
     })
   }
-  changeEmail() { }
+  private get newEmailValue(){
+    return this.emailChangeForm.value.newEmail
+  }
+
+  changeEmail() {
+    this.emailChanged.emit(this.newEmailValue)
+  }
 }
