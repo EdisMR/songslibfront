@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -12,13 +12,27 @@ export class PassFormComponent {
   ) {
     this.passChangeFormBuilder();
   }
+
+  @Output() newPassRequest = new EventEmitter<{
+    oldPass: string,
+    newPass: string,
+    newPassConfirm: string
+  }>
+
   public passChangeForm!: FormGroup
   private passChangeFormBuilder() {
     this.passChangeForm = this._fb.group({
-      oldPass: [''],
-      newPass: [''],
+      oldPass: ['', [Validators.required]],
+      newPass: ['', [Validators.required]],
       newPassConfirm: ['', [Validators.required]]
     })
   }
-  changePass() { }
+
+  changePass() {
+    this.newPassRequest.emit({
+      newPass: this.passChangeForm.value.newPass,
+      newPassConfirm: this.passChangeForm.value.newPassConfirm,
+      oldPass: this.passChangeForm.value.oldPass,
+    })
+  }
 }

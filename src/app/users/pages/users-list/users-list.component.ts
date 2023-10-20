@@ -24,12 +24,23 @@ export class UsersListComponent implements OnInit, OnDestroy {
   private userSubscription: Subscription = this.usersService.usersList$
     .subscribe((usersList) => {
       this.usersInfo = usersList
-      this.userEditing = usersList[0] //! Implementar. Obtener el usuario desde url
     })
 
 
   selectUser(userIdSelected: string) {
     console.log({'User selected':userIdSelected})
+  }
+
+  modifyPass(data:{
+    oldPass: string,
+    newPass: string,
+    newPassConfirm: string
+  }){
+    console.log({
+      oldPass: data.oldPass,
+      newPass: data.newPass,
+      newPassConfirm: data.newPassConfirm
+    })
   }
 
   createUser() {
