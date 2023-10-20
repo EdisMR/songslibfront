@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, EMPTY, Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from '../environment/environment';
@@ -29,53 +28,75 @@ export class SongService {
   private allSongs: Observable<songInterface[]> = this.allSongsExposer.asObservable()
 
   public allSongs$(): Observable<songInterface[]> {
-    if(this.allSongsSource.length === 0) {
+    if (this.allSongsSource.length === 0) {
       this._loader.display()
       return this._http.get<RespGetAllSongs>(this.variables.api_songs)
+        .pipe(
+          map((resp) => {
+            if (resp.response_details.execution_result == false) {
+              throw new Error(resp.response_details.message)
+            }
+            this.allSongsSource = resp.data
+            this.allSongsExposer.next(this.allSongsSource)
+            return this.allSongsSource
+          }),
+          catchError((err) => {
+            this._loader.hide()
+            this._snackBar.error('Error al solicitar la música')
+            return EMPTY
+          }),
+          tap(() => {
+            this._loader.hide()
+          })
+        )
+    }
+    return this.allSongs
+  }
+
+  public updateSong(song: songInterface): Observable<songInterface> {
+    this._loader.display()
+    return this._http.patch<RespPatchSong>(this.variables.api_songs + '/' + song.public_id, song)
       .pipe(
         map((resp) => {
-          if(resp.response_details.execution_result==false){
+          if (resp.response_details.execution_result == false) {
             throw new Error(resp.response_details.message)
           }
-          this.allSongsSource = resp.data
-          this.allSongsExposer.next(this.allSongsSource)
-          return this.allSongsSource
+          this._snackBar.success('Canción actualizada')
+          let itemToUpdate = this.allSongsSource.findIndex((item) => item.public_id === song.public_id)
+          this.allSongsSource[itemToUpdate] = song
+          return resp.data
         }),
         catchError((err) => {
           this._loader.hide()
-          this._snackBar.error('Error al solicitar la música')
+          this._snackBar.error('Error al consultar la base de datos')
+          return EMPTY
+        }),
+        tap(() => {
+          this._loader.hide()
+          
+        })
+      )
+  }
+
+  public createSong(): Observable<songInterface> {
+    return this._http.post<RespPatchSong>(this.variables.api_songs, {})
+      .pipe(
+        map((resp) => {
+          if (resp.response_details.execution_result == false) {
+            throw new Error(resp.response_details.message)
+          }
+          this._snackBar.success('Nueva canción creada')
+          return resp.data
+        }),
+        catchError((err) => {
+          this._loader.hide()
+          this._snackBar.error('Error al crear canción')
           return EMPTY
         }),
         tap(() => {
           this._loader.hide()
         })
       )
-    }
-    return this.allSongs
-  }
-
-  public updateSong(song: songInterface):Observable<songInterface> {
-    this._loader.display()
-    return this._http.patch<RespPatchSong>(this.variables.api_songs+'/'+song.public_id, song)
-    .pipe(
-      map((resp) => {
-        if(resp.response_details.execution_result==false){
-          throw new Error(resp.response_details.message)
-        }
-        this._snackBar.success('Canción actualizada')
-        return resp.data
-      }),
-      catchError((err) => {
-        this._loader.hide()
-        this._snackBar.error('Error al consultar la base de datos')
-        return EMPTY
-      }),
-      tap(() => {
-        this._loader.hide()
-        let itemToUpdate= this.allSongsSource.findIndex((item) => item.public_id === song.public_id)
-        this.allSongsSource[itemToUpdate] = song
-      })
-    )
   }
 
 

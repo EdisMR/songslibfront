@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { EMPTY, Subscription } from 'rxjs';
 import { UsersInterface } from '../../interfaces/users.interface';
 import { UsersService } from '../../services/users.service';
+import { SongService } from 'src/app/services/song.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -11,7 +13,9 @@ import { UsersService } from '../../services/users.service';
 })
 export class UsersListComponent implements OnInit, OnDestroy {
   constructor(
-    private usersService: UsersService
+    private usersService: UsersService,
+    private songService:SongService,
+    private _router:Router
   ) {
     this.getAllUsers()
   }
@@ -145,7 +149,11 @@ export class UsersListComponent implements OnInit, OnDestroy {
 
 
 
-  createSong() { }
+  createSong() {
+    this.songService.createSong().subscribe(song=>{
+      this._router.navigate(['','song',song.public_id])
+    })
+  }
 
   ngOnInit(): void { }
 
