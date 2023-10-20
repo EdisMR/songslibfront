@@ -7,6 +7,9 @@
 	background-image: url("^assets/images/hojas.gif");
 	background-size: 100vw auto;
 	background-position: bottom;
+	&:hover{
+		background-blend-mode: hard-light;
+	}
 }
 
 .donation-link {
@@ -30,7 +33,7 @@
 	&:active {
 		background-position: center center;
 	}
-
+	
 	&:active {
 		scale: 0.95;
 	}
