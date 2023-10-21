@@ -5,7 +5,7 @@
 
 .error-actions {
 	margin-top: 15px;
-	margin-bottom: 15px;
+	margin-bottom: 0px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -14,12 +14,47 @@
 .btn {
 	margin-right: 10px;
 }
-.error-action-item{
-	display:flex;
+
+.error-action-item {
+	display: flex;
 	justify-content: flex-start;
 	align-items: center;
-	margin: 5px;
 	width: 20ch;
 	height: 25px;
 	padding: 10px 5px;
+}
+
+.img-related{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	img{
+		width: 100%;
+		height: auto;
+		pointer-events: none;
+	}
+}
+
+@media screen and (min-width:600px) {
+	.img-related img {
+		width: 90vw;
+	}
+}
+
+@media screen and (min-width:800px) {
+	.img-related img {
+		width: 65vw;
+	}
+}
+
+@media screen and (min-width:1027px) {
+	.img-related img {
+		width: 40vw;
+	}
+}
+
+@media screen and (min-width:1500px) {
+	.img-related img {
+		width: 30vw;
+	}
 }

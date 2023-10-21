@@ -11,6 +11,8 @@ export class SongsResolver {
   constructor(
     private _song: SongService,
     private _router: Router
+
+    //!LOGIN SERVICE para filtrar los cantos inactivos en modo CLIENT
   ) { }
   resolve(route: ActivatedRouteSnapshot): Observable<songInterface[]> | Observable<songInterface> {
     let songId:string = '';

@@ -31,6 +31,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { SongComponent } from './pages/song/song.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { DonationComponent } from './components/donation/donation.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 const MaterialImports = [
@@ -48,7 +49,8 @@ const MaterialImports = [
   MatSelectModule,
   MatTooltipModule,
   MatSnackBarModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  DragDropModule
 ]
 @NgModule({
   declarations: [

@@ -9,7 +9,8 @@
 	background-position: bottom;
 
 	margin-top: 100px;
-	&:hover{
+
+	&:hover {
 		background-blend-mode: hard-light;
 	}
 }
@@ -28,16 +29,18 @@
 	color: aliceblue !important;
 	border-radius: 20px;
 	box-shadow: 5px 8px 10px 1px #0000009c;
-	transition: all .2s;
+	transition-property: background-position scale box-shadow;
+	transition-duration: .2s;
 	scale: 1;
 
 	&:hover,
 	&:active {
 		background-position: center center;
 	}
-	
+
 	&:active {
 		scale: 0.95;
+		box-shadow: 4px 3px 10px 1px rgba(0, 0, 0, 0.6117647059);
 	}
 }
 
