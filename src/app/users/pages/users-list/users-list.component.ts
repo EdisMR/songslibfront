@@ -115,17 +115,21 @@ export class UsersListComponent implements OnInit, OnDestroy {
 
 
   deleteUser() {
-    this.usersService.deleteUser(this.userEditing.public_id).subscribe(e => {
-      this.userEditing = {
-        active: false,
-        date_created: new Date(),
-        date_updated: new Date(),
-        email: '',
-        public_id: '',
-        username: ''
-      }
-      this.getAllUsers()
-    })
+    let result = window.confirm('¿Desea eliminar este usuario?')
+    if (result) {
+      this.usersService.deleteUser(this.userEditing.public_id).subscribe(e => {
+        this.userEditing = {
+          active: false,
+          date_created: new Date(),
+          date_updated: new Date(),
+          email: '',
+          public_id: '',
+          username: ''
+        }
+        this.getAllUsers()
+      })
+    }
+
   }
 
   public get userActive(): boolean {

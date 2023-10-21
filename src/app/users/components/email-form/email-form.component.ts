@@ -19,7 +19,7 @@ export class EmailFormComponent {
   }
   @Output() emailChanged=new EventEmitter<string>
 
-  private emailSource:string=''
+  public emailSource:string=''
   public emailChangeForm!: FormGroup
   private emailChangeFormBuilder() {
     this.emailChangeForm = this._fb.group({

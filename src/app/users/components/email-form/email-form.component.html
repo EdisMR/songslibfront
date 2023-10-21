@@ -1,10 +1,11 @@
 <div class="form-container">
 	<div>
-		<strong>Cambiar Email</strong>
+		<strong  *ngIf="emailSource.length==0">Asignar Email</strong>
+		<strong  *ngIf="emailSource.length>0">Modificar Email</strong>
 	</div>
 	<div [formGroup]="emailChangeForm">
 		<mat-form-field>
-			<mat-label>Nuevo email</mat-label>
+			<mat-label>Email de usuario</mat-label>
 			<input matInput formControlName="newEmail">
 		</mat-form-field>
 		<button mat-raised-button (click)="changeEmail()">Proceder</button>

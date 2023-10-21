@@ -10,10 +10,14 @@
 			<div class="display-user-info">
 				<h2>
 					<div>
-						<span>Nombre: {{userEditing.username}}</span>
+						<span>Nombre: </span>
+						<span *ngIf="userEditing.username.length==0">(sin nombre)</span>
+						<span>{{userEditing.username}}</span>
 					</div>
 					<div>
-						<span>Email: {{userEditing.email}}</span>
+						<span>Email: </span>
+						<span *ngIf="userEditing.email.length==0">(sin email)</span>
+						<span>{{userEditing.email}}</span>
 					</div>
 					<div><!-- *ngIf="isItMe" -->
 						<span class="warn-text">*** Sesión Actual ***</span>

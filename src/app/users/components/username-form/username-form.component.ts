@@ -19,7 +19,7 @@ export class UsernameFormComponent {
   }
   @Output() changeUsername=new EventEmitter<string>
 
-  private usernameSource:string=''
+  public usernameSource:string=''
   public nameChangeForm!: FormGroup
   private nameChangeFormBuilder() {
     this.nameChangeForm = this._fb.group({

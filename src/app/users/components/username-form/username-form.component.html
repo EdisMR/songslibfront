@@ -1,10 +1,11 @@
 <div class="form-container">
 	<div>
-		<strong>Cambiar Nombre de Usuario</strong>
+		<strong *ngIf="usernameSource.length==0">Asignar Nombre de Usuario</strong>
+		<strong  *ngIf="usernameSource.length>0">Cambiar Nombre de Usuario</strong>
 	</div>
 	<div [formGroup]="nameChangeForm">
 		<mat-form-field>
-			<mat-label>Nuevo nombre de usuario</mat-label>
+			<mat-label>Nombre de usuario</mat-label>
 			<input matInput formControlName="newName">
 		</mat-form-field>
 		<button mat-raised-button (click)="changeName()">Proceder</button>
