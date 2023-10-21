@@ -2,52 +2,58 @@
 	<section class="main-content">
 
 
-		<app-id-form [currentSelected]="userEditing.public_id" [users]="usersInfo" (createNewUser)="createUser()" (userIdSelected)="selectUser($event)"></app-id-form>
+		<app-id-form [currentSelected]="userEditing.public_id" [users]="usersInfo" (createNewUser)="createUser()"
+			(userIdSelected)="selectUser($event)"></app-id-form>
 
-		<div class="display-user-info">
-			<h2>
-				<div>
-					<span>Nombre: {{userEditing.username}}</span>
-				</div>
-				<div>
-					<span>Email: {{userEditing.email}}</span>
-				</div>
-				<div><!-- *ngIf="isItMe" -->
-					<span class="warn-text">*** Sesión Actual ***</span>
-				</div>
-			</h2>
-		</div>
+		<ng-container *ngIf="userEditing.public_id"> <!-- START display data when available -->
 
-
-		<app-username-form [username]="userEditing.username" (changeUsername)="changeUsername($event)"></app-username-form>
-
-
-
-		<app-email-form [email]="userEditing.email" (emailChanged)="changeEmail($event)"></app-email-form>
-
-
-
-		<app-pass-form [changes]="userEditing.public_id" (newPassRequest)="modifyPass($event)"></app-pass-form>
-
-
-		<div class="other-actions">
-			<div>
-				<h2>Otras acciones para este usuario</h2>
+			<div class="display-user-info">
+				<h2>
+					<div>
+						<span>Nombre: {{userEditing.username}}</span>
+					</div>
+					<div>
+						<span>Email: {{userEditing.email}}</span>
+					</div>
+					<div><!-- *ngIf="isItMe" -->
+						<span class="warn-text">*** Sesión Actual ***</span>
+					</div>
+				</h2>
 			</div>
-			<div class="controls-container">
-				<div class="control-item">
-					<button mat-raised-button (click)="deleteUser()" color="warn">
-						<span>Eliminar usuario</span>
-					</button>
+
+
+			<app-username-form [username]="userEditing.username"
+				(changeUsername)="changeUsername($event)"></app-username-form>
+
+
+
+			<app-email-form [email]="userEditing.email" (emailChanged)="changeEmail($event)"></app-email-form>
+
+
+
+			<app-pass-form [changes]="userEditing.public_id" (newPassRequest)="modifyPass($event)"></app-pass-form>
+
+
+			<div class="other-actions">
+				<div>
+					<h2>Otras acciones para este usuario</h2>
 				</div>
-				<div class="control-item">
-					<button mat-raised-button (click)="switchActiveUser()" [color]="userActive?'warn':'primary'">
-						<span *ngIf="!userActive">Activar perfil</span>
-						<span *ngIf="userActive">Desactivar perfil</span>
-					</button>
+				<div class="controls-container">
+					<div class="control-item">
+						<button mat-raised-button (click)="deleteUser()" color="warn">
+							<span>Eliminar usuario</span>
+						</button>
+					</div>
+					<div class="control-item">
+						<button mat-raised-button (click)="switchActiveUser()" [color]="userActive?'warn':'primary'">
+							<span *ngIf="!userActive">Activar perfil</span>
+							<span *ngIf="userActive">Desactivar perfil</span>
+						</button>
+					</div>
 				</div>
 			</div>
-		</div>
+
+		</ng-container> <!-- END display data when available -->
 
 
 		<div class="other-actions">
@@ -62,7 +68,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="other-actions">
 			<div>
 				<h2>Nueva Canción</h2>

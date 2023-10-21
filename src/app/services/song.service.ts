@@ -70,7 +70,7 @@ export class SongService {
         }),
         catchError((err) => {
           this._loader.hide()
-          this._snackBar.error('Error al consultar la base de datos')
+          this._snackBar.error('Error al actualizar la canción')
           return EMPTY
         }),
         tap(() => {
@@ -88,7 +88,7 @@ export class SongService {
             console.error(resp.response_details.message)
             throw new Error(resp.response_details.message)
           }
-          this._snackBar.success('Nueva canción creada')
+          this._snackBar.success('Canción creada')
           return resp.data
         }),
         catchError((err) => {

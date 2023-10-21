@@ -1,9 +1,9 @@
 <mat-toolbar color="primary">
-    <div class="footer">
+    <div class="footer noSelect">
         <div>©2023</div>
 
-        <div routerLink="/users" *ngIf="activeAdminSesion">
-            <span>Usuarios</span>
+        <div [routerLink]="['','about']" class="link">
+            <span>Acerca de</span>
         </div>
 
         <div class="github-link">

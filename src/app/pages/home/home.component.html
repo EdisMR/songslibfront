@@ -10,14 +10,14 @@
 			</form>
 		</div>
 
-		<div class="formFilter" [formGroup]="formFilterData">
+		<div class="formFilter noSelect" [formGroup]="formFilterData">
 			<mat-form-field>
-				<mat-label>Categoría</mat-label>
-				<mat-select formControlName="tag">
+				<mat-label><span class="noSelect">Categoría</span></mat-label>
+				<mat-select formControlName="tag" class="noSelect">
 					<mat-option value="">-- Todos --</mat-option>
-					<mat-optgroup *ngFor="let group of categories" [label]="group.name">
+					<mat-optgroup [ngClass]="'noSelect'" *ngFor="let group of categories" [label]="group.name">
 						<mat-option *ngFor="let tag of group.subcategories" [value]="tag">
-							{{tag}}
+							<span class="noSelect">{{tag}}</span>
 						</mat-option>
 					</mat-optgroup>
 				</mat-select>
@@ -26,7 +26,7 @@
 
 	</div>
 	<ng-container *ngIf="searchTerm.length>0">
-		<div class="results-search-from"><span>Resultados: {{searchTerm | titlecase}}</span></div>
+		<div class="results-search-from noSelect"><span>Resultados: {{searchTerm | titlecase}}</span></div>
 	</ng-container>
 </div>
 
@@ -55,7 +55,7 @@
 </section>
 <section>
 	<ng-container *ngIf="songsListFiltered.length==0">
-		<div style="text-align: center;">
+		<div class="noSelect" style="text-align: center;">
 			<span>---- Ninguno ----</span>
 		</div>
 	</ng-container>

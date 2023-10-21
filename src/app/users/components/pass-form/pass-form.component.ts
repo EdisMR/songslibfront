@@ -18,7 +18,7 @@ export class PassFormComponent {
     newPass: string,
     newPassConfirm: string
   }>
-  @Input('changes') set changes(changes:string){
+  @Input('changes') set changes(changes: string) {
     this.passChangeForm.reset()
   }
 
@@ -32,10 +32,13 @@ export class PassFormComponent {
   }
 
   changePass() {
-    this.newPassRequest.emit({
-      newPass: this.passChangeForm.value.newPass||'',
-      newPassConfirm: this.passChangeForm.value.newPassConfirm||'',
-      oldPass: this.passChangeForm.value.oldPass||'',
-    })
+    let deleteQuestion = window.confirm('¿Desea eliminar este usuario?')
+    if (deleteQuestion) {
+      this.newPassRequest.emit({
+        newPass: this.passChangeForm.value.newPass || '',
+        newPassConfirm: this.passChangeForm.value.newPassConfirm || '',
+        oldPass: this.passChangeForm.value.oldPass || '',
+      })
+    }
   }
 }

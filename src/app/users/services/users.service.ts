@@ -201,12 +201,16 @@ export class UsersService {
             console.error(resp.response_details.message)
             throw new Error(resp.response_details.message)
           }
-          this._snackBar.success('Usuario modificado')
+          let textMsg:string='Usuario '
+          resp.data.active?textMsg+='ACTIVADO':textMsg+='DESACTIVADO'
+          this._snackBar.success(textMsg)
           return resp.data
         }),
         catchError((err) => {
           this._loader.hide()
-          this._snackBar.error('Error al modificar USUARIO')
+          let textMsg:string='Error al '
+          params.newActive?textMsg+='ACTIVAR usuario. Queda inactivo':textMsg+='DESACTIVAR usuario. Queda activado'
+          this._snackBar.error(textMsg)
           return EMPTY
         }),
         tap(() => {

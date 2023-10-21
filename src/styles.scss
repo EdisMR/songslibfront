@@ -60,18 +60,21 @@ a {
 	padding: 0px !important;
 }
 
+.noSelect {
+	user-select: none;
+}
 
-.msg-error *{
+.msg-error * {
 	background-color: rgb(185, 17, 17) !important;
 	color: white !important;
 }
 
-.msg-success *{
+.msg-success * {
 	background-color: rgb(12, 102, 17) !important;
 	color: white !important;
 }
 
-.msg-warn *{
+.msg-warn * {
 	background-color: rgb(255, 174, 54) !important;
 	color: black !important;
 }

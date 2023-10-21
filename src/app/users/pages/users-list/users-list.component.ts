@@ -14,8 +14,8 @@ import { Router } from '@angular/router';
 export class UsersListComponent implements OnInit, OnDestroy {
   constructor(
     private usersService: UsersService,
-    private songService:SongService,
-    private _router:Router
+    private songService: SongService,
+    private _router: Router
   ) {
     this.getAllUsers()
   }
@@ -56,12 +56,15 @@ export class UsersListComponent implements OnInit, OnDestroy {
   }
 
   createUser() {
-    this.usersService.createUser().subscribe(user => {
-      this.getAllUsers({
-        newUserRedirection: true,
-        userIdRedirection: user.public_id
+    let deleteQuestion = window.confirm('¿Desea crear NUEVO usuario?')
+    if (deleteQuestion) {
+      this.usersService.createUser().subscribe(user => {
+        this.getAllUsers({
+          newUserRedirection: true,
+          userIdRedirection: user.public_id
+        })
       })
-    })
+    }
   }
 
 
@@ -112,20 +115,17 @@ export class UsersListComponent implements OnInit, OnDestroy {
 
 
   deleteUser() {
-    let deleteQuestion = window.confirm('¿Desea eliminar este usuario?')
-    if(deleteQuestion){
-      this.usersService.deleteUser(this.userEditing.public_id).subscribe(e => {
-        this.userEditing = {
-          active:false,
-          date_created:new Date(),
-          date_updated:new Date(),
-          email:'',
-          public_id:'',
-          username:''
-        }
-        this.getAllUsers()
-      })
-    }
+    this.usersService.deleteUser(this.userEditing.public_id).subscribe(e => {
+      this.userEditing = {
+        active: false,
+        date_created: new Date(),
+        date_updated: new Date(),
+        email: '',
+        public_id: '',
+        username: ''
+      }
+      this.getAllUsers()
+    })
   }
 
   public get userActive(): boolean {
@@ -145,14 +145,20 @@ export class UsersListComponent implements OnInit, OnDestroy {
 
 
 
-  logout() { }
+  logout() {
+    let deleteQuestion = window.confirm('¿Desea cerrar esta sesión?')
+    if (deleteQuestion) { }
+  }
 
 
 
   createSong() {
-    this.songService.createSong().subscribe(song=>{
-      this._router.navigate(['','song',song.public_id])
-    })
+    let deleteQuestion = window.confirm('¿Crear nueva canción?')
+    if (deleteQuestion) {
+      this.songService.createSong().subscribe(song => {
+        this._router.navigate(['', 'song', song.public_id])
+      })
+    }
   }
 
   ngOnInit(): void { }

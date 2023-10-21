@@ -6,7 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent {
-  public get activeAdminSesion(): boolean {
-    return true
-  }
 }
