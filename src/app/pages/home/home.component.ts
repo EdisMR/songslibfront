@@ -76,6 +76,8 @@ export class HomeComponent implements OnDestroy {
       const tagsMatch = song.categories.some(tag => tag.toLowerCase().includes(this.searchTerm.toLowerCase()));
       return titleMatch || tagsMatch;
     });
+
+    /* Remove inactive songs (if client) */
   }
 
 

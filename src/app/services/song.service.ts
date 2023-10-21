@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, EMPTY, Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from '../environment/environment';
-import { RespGetAllSongs, RespPatchSong, songInterface } from '../interfaces/song.interface';
+import { RespGetAllSongs, RespNoDataInterface, RespPatchSong, songInterface } from '../interfaces/song.interface';
 import { LoaderService } from './loader.service';
 import { SnackbarService } from './snackbar-svc.service';
 @Injectable({
@@ -19,7 +19,7 @@ export class SongService {
   variables = {
     api_url: environment.api_url,
     api_categories: environment.api_url + "/categories",
-    api_songs: environment.api_url + "/song",
+    api_songs: environment.api_url + "/song/",
   }
 
 
@@ -55,7 +55,7 @@ export class SongService {
 
   public updateSong(song: songInterface): Observable<songInterface> {
     this._loader.display()
-    return this._http.patch<RespPatchSong>(this.variables.api_songs + '/' + song.public_id, song)
+    return this._http.patch<RespPatchSong>(this.variables.api_songs + song.public_id, song)
       .pipe(
         map((resp) => {
           if (resp.response_details.execution_result == false) {
@@ -91,6 +91,27 @@ export class SongService {
         catchError((err) => {
           this._loader.hide()
           this._snackBar.error('Error al crear canción')
+          return EMPTY
+        }),
+        tap(() => {
+          this._loader.hide()
+        })
+      )
+  }
+
+  public deleteSong(id:string):Observable<void>{
+    return this._http.delete<RespNoDataInterface>(this.variables.api_songs+id)
+      .pipe(
+        map((resp) => {
+          if (resp.response_details.execution_result == false) {
+            throw new Error(resp.response_details.message)
+          }
+          this._snackBar.success('Canción eliminada')
+          return
+        }),
+        catchError((err) => {
+          this._loader.hide()
+          this._snackBar.error('Error al eliminar canción')
           return EMPTY
         }),
         tap(() => {

@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { songInterface } from 'src/app/interfaces/song.interface';
 import { SongService } from 'src/app/services/song.service';
 import { environment } from 'src/app/environment/environment';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-song',
@@ -13,6 +13,7 @@ export class SongComponent implements OnDestroy {
   constructor(
     private _songSvc: SongService,
     private _activatedRoute: ActivatedRoute,
+    private _router:Router
   ) {
     this._activatedRoute.data.subscribe((data: Params) => {
       this.song=data['songs']
@@ -78,7 +79,9 @@ export class SongComponent implements OnDestroy {
   }
 
   adminRequireDeletion() {
-    console.log('Song deletion required')
+    this._songSvc.deleteSong(this.song.public_id).subscribe(e=>{
+      this._router.navigate([''])
+    })
   }
 
   ngOnDestroy() {

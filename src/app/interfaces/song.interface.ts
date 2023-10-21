@@ -34,3 +34,13 @@ export interface RespPatchSong {
 	};
 	data: songInterface;
 }
+
+export interface RespNoDataInterface {
+	response_details: {
+		execution_result: boolean;
+		message: string;
+		code: number;
+		params: {};
+	};
+	data: {};
+}
