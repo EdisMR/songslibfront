@@ -1,6 +1,12 @@
 .ql-container {
-	font-size: 20px;
+	font-size: 14px;
+	font-family: monospace;
+	width: 100%;
+	min-width: calc(60ch + 30px);
+	overflow: auto;
 }
+
+
 
 button {
 	color: white !important;
@@ -10,6 +16,13 @@ button {
 	color: white !important;
 }
 
-.ql-snow, .ql-toolbar button, .ql-snow .ql-toolbar button {
+.ql-snow,
+.ql-toolbar button,
+.ql-snow .ql-toolbar button {
 	color: white !important;
+}
+
+
+@media screen and (max-width:600px) {
+	.ql-container {}
 }

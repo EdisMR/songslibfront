@@ -59,6 +59,8 @@ export class SongService {
       .pipe(
         map((resp) => {
           if (resp.response_details.execution_result == false) {
+            console.error(resp.response_details.message)
+            console.error(resp.response_details.message)
             throw new Error(resp.response_details.message)
           }
           this._snackBar.success('Canción actualizada')
@@ -83,6 +85,7 @@ export class SongService {
       .pipe(
         map((resp) => {
           if (resp.response_details.execution_result == false) {
+            console.error(resp.response_details.message)
             throw new Error(resp.response_details.message)
           }
           this._snackBar.success('Nueva canción creada')
@@ -104,6 +107,7 @@ export class SongService {
       .pipe(
         map((resp) => {
           if (resp.response_details.execution_result == false) {
+            console.error(resp.response_details.message)
             throw new Error(resp.response_details.message)
           }
           this._snackBar.success('Canción eliminada')

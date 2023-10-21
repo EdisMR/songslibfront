@@ -34,14 +34,6 @@ body {
 	width: 70vw;
 }
 
-
-
-.ql-editor {
-	min-width: 550px;
-	width: 100%;
-}
-
-
 a {
 	text-decoration: none;
 	color: mat.get-color-from-palette($accent);
@@ -61,6 +53,11 @@ a {
 
 .form-container {
 	margin-bottom: 50px;
+}
+
+
+.ql-editor {
+	padding: 0px !important;
 }
 
 

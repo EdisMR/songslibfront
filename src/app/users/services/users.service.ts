@@ -28,6 +28,7 @@ export class UsersService {
       .pipe(
         map((resp) => {
           if (resp.response_details.execution_result == false) {
+            console.error(resp.response_details.message)
             throw new Error(resp.response_details.message)
           }
           this.usersList = resp.data
@@ -51,6 +52,7 @@ export class UsersService {
       .pipe(
         map((resp) => {
           if (resp.response_details.execution_result == false) {
+            console.error(resp.response_details.message)
             throw new Error(resp.response_details.message)
           }
           this._snackBar.success('USUARIO creado')
@@ -80,6 +82,7 @@ export class UsersService {
       .pipe(
         map((resp) => {
           if (resp.response_details.execution_result == false) {
+            console.error(resp.response_details.message)
             throw new Error(resp.response_details.message)
           }
           this._snackBar.success('USUARIO modificado')
@@ -109,6 +112,7 @@ export class UsersService {
       .pipe(
         map((resp) => {
           if (resp.response_details.execution_result == false) {
+            console.error(resp.response_details.message)
             throw new Error(resp.response_details.message)
           }
           this._snackBar.success('Email de USUARIO modificado')
@@ -140,6 +144,7 @@ export class UsersService {
       .pipe(
         map((resp) => {
           if (resp.response_details.execution_result == false) {
+            console.error(resp.response_details.message)
             throw new Error(resp.response_details.message)
           }
           this._snackBar.success('Contraseña modificada')
@@ -164,6 +169,7 @@ export class UsersService {
       .pipe(
         map((resp) => {
           if (resp.response_details.execution_result == false) {
+            console.error(resp.response_details.message)
             throw new Error(resp.response_details.message)
           }
           this._snackBar.success('USUARIO eliminado')
@@ -192,6 +198,7 @@ export class UsersService {
       .pipe(
         map((resp) => {
           if (resp.response_details.execution_result == false) {
+            console.error(resp.response_details.message)
             throw new Error(resp.response_details.message)
           }
           this._snackBar.success('Usuario modificado')
