@@ -29,7 +29,10 @@
 .lyric-area {
 	padding-top: 30px;
 	padding-bottom: 30px;
+	overflow: auto;
 }
+
+
 
 .songInfoDisplayer__title{
 	transition: all .2s;

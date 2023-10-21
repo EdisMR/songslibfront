@@ -21,7 +21,7 @@ export class SongsResolver {
           map((songsList: songInterface[]) => {
             let result = {} as songInterface
             result = songsList.filter((song) => {
-              return song.public_id == songId
+              return song.public_id == songId || song.linkstring == songId
             })[0]
             if(result === undefined) {
               this._router.navigate(['/not-found'])
