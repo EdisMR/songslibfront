@@ -3,11 +3,9 @@ export interface songInterface {
 	date_created: Date;
 	date_updated: Date;
 	title: string;
-	artist: string;
-	tempo: number;
-	linkstring: string;
+	url: string;
 	lyric: string;
-	files: string[];
+	sources: string[];
 	categories: string[];
 	active: boolean;
 }

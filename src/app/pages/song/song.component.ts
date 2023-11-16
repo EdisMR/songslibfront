@@ -1,7 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { songInterface } from 'src/app/interfaces/song.interface';
 import { SongService } from 'src/app/services/song.service';
-import { environment } from 'src/app/environment/environment';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
@@ -30,35 +29,9 @@ export class SongComponent implements OnDestroy {
     })
   }
 
-  public get audiosList() {
-    let filetypesAllowed: string[] = environment.fileTypeAllowed
-    try {
-      return this.song.files.filter((file) => {
-        /* extract file extension */
-        let fileExt = file.split('.').pop()
-        return filetypesAllowed.includes('.' + fileExt)
-      })
-    } catch (error) { return [] }
-  }
-
-  public get otherFilesList() {
-    let filetypesAllowed: string[] = environment.fileTypeAllowed
-    try {
-      return this.song.files.filter((file) => {
-        /* extract file extension */
-        let fileExt = file.split('.').pop()
-        return !filetypesAllowed.includes('.' + fileExt)
-      })
-    } catch (error) { return [] }
-  }
-
-  public get staticFilesDir() {
-    return environment.static_files_dir
-  }
-
   copyLinkstring(){
     window.navigator.share({
-      text: `${this.song.linkstring} - ${this.song.title}`,
+      text: `${this.song.url} - ${this.song.title}`,
       url:window.location.href
     })
   }

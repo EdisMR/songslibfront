@@ -1,0 +1,26 @@
+<h3>
+	<div>Enlaces relacionados</div>
+</h3>
+
+<ng-container *ngIf="editingNow==true">
+	<button mat-flat-button color="primary" (click)="addLink()">
+		<span>Agregar enlace</span>
+	</button>
+</ng-container>
+
+<ng-container>
+	<mat-list role="list">
+		<mat-list-item role="listitem" *ngFor="let item of song.sources;index as index">
+			<div class="list-flex"  mat-ripple>
+				<div>
+					<a [href]="item" target="_blank" rel="noopener noreferrer">{{item}}</a>
+				</div>
+				<div *ngIf="editingNow">
+					<button mat-flat-button color="warn" (click)="removeSource(index)">
+						<span>Eliminar</span><mat-icon>delete</mat-icon>
+					</button>
+				</div>
+			</div>
+		</mat-list-item>
+	</mat-list>
+</ng-container>

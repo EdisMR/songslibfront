@@ -35,10 +35,10 @@
 
 <section class="songs-list">
 	<ng-container *ngFor="let song of songsListFiltered">
-		<mat-card class="card" mat-ripple [routerLink]="['','song',song.linkstring]">
+		<mat-card class="card" mat-ripple [routerLink]="['','song',song.url]">
 			<mat-card-header class="link-cursor">
 				<mat-card-title class="song-title">
-					<span>{{song.linkstring}} - {{song.title}}</span>
+					<span>{{song.url}} - {{song.title}}</span>
 				</mat-card-title>
 			</mat-card-header>
 			<mat-card-actions>

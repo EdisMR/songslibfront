@@ -25,8 +25,6 @@ export class SongInfoFormComponent implements OnInit, OnDestroy {
   buildSongInfoForm() {
     this.songInfoForm = this._fb.group({
       title: [this.songInfo.title],
-      artist: [this.songInfo.artist],
-      tempo: [this.songInfo.tempo || 0],
     })
     this.songInfoFormSubscription = this.songInfoForm.valueChanges.
       pipe(debounceTime(1000)).
@@ -35,8 +33,6 @@ export class SongInfoFormComponent implements OnInit, OnDestroy {
           songInfoData.tempo = 0
         }
         this.songInfo.title = songInfoData.title
-        this.songInfo.artist = songInfoData.artist
-        this.songInfo.tempo = songInfoData.tempo
         this.songInfoUpdated.emit(this.songInfo)
       })
   }

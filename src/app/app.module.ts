@@ -32,6 +32,7 @@ import { SongComponent } from './pages/song/song.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { DonationComponent } from './components/donation/donation.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { SourcesFormComponent } from './components/sources-form/sources-form.component';
 
 
 const MaterialImports = [
@@ -64,7 +65,8 @@ const MaterialImports = [
     AdminControlsSongComponent,
     NotFoundComponent,
     AboutComponent,
-    DonationComponent
+    DonationComponent,
+    SourcesFormComponent
   ],
   imports: [
     BrowserModule,
