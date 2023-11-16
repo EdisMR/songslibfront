@@ -24,8 +24,13 @@ export class SourcesFormComponent {
   song: songInterface = {} as songInterface
 
   removeSource(index:number){
-    this.song.sources.splice(index,1)
-    this.emitUpdates()
+    let result=window.confirm(`¿Eliminar este elemento?
+    ${this.song.sources[index]}`)
+    if(result){
+      this.song.sources.splice(index,1)
+      this.emitUpdates()
+    }
+    return false
   }
 
   addLink(){

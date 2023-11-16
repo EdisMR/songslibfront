@@ -19,11 +19,11 @@ export class AdminControlsSongComponent {
 
 
   public get activeSong() {
-    return true
+    return this.song.active
   }
 
   public updateActive(activeData: MatSlideToggleChange) {
-    this.song.active === true ? this.song.active = false : this.song.active = true
+    this.song.active = activeData.checked
     this.songAdminUpdatesEmmiter.emit(this.song)
   }
 

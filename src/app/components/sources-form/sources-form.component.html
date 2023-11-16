@@ -1,26 +1,32 @@
-<h3>
-	<div>Enlaces relacionados</div>
-</h3>
-
-<ng-container *ngIf="editingNow==true">
-	<button mat-flat-button color="primary" (click)="addLink()">
-		<span>Agregar enlace</span>
-	</button>
-</ng-container>
-
-<ng-container>
-	<mat-list role="list">
-		<mat-list-item role="listitem" *ngFor="let item of song.sources;index as index">
-			<div class="list-flex"  mat-ripple>
-				<div>
-					<a [href]="item" target="_blank" rel="noopener noreferrer">{{item}}</a>
-				</div>
+<ng-container *ngIf="editingNow || song.sources.length>0">
+	<div class="list-container">
+		<div>
+			<div class="list-flex">
+				<h3>
+					<span>Enlaces relacionados</span>
+				</h3>
 				<div *ngIf="editingNow">
-					<button mat-flat-button color="warn" (click)="removeSource(index)">
-						<span>Eliminar</span><mat-icon>delete</mat-icon>
+					<button mat-flat-button color="primary" (click)="addLink()">
+						<span>Agregar enlace</span>
 					</button>
 				</div>
 			</div>
-		</mat-list-item>
-	</mat-list>
+		</div>
+		<div>
+			<ng-container *ngFor="let item of song.sources;index as index">
+				<mat-divider></mat-divider>
+				<div mat-ripple class="list-flex list-item">
+					<span>
+						<a [href]="item" target="_blank" rel="noopener noreferrer">{{item}}</a>
+					</span>
+					<div *ngIf="editingNow">
+						<button mat-flat-button color="warn" (click)="removeSource(index)">
+							<span>Eliminar</span><mat-icon>delete</mat-icon>
+						</button>
+					</div>
+				</div>
+				<mat-divider></mat-divider>
+			</ng-container>
+		</div>
+	</div>
 </ng-container>

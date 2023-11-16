@@ -2,4 +2,20 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	flex-wrap: nowrap;
+	width: 100%;
+}
+
+.list-container{
+	border: 2px solid rgba(255, 255, 255, 0.185);
+	border-radius: 10px;
+	padding: 10px;
+	margin-top: 50px;
+}
+
+.list-item{
+	padding: 5px 0px;
+	a{
+		line-break: anywhere;
+	}
 }

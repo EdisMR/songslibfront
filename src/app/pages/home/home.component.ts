@@ -71,10 +71,12 @@ export class HomeComponent implements OnDestroy {
 
 
   private filterData() {
+    //!Considerar el caso en que es cliente remover inactivos y en caso de que sea admin mostrar todo
     this.songsListFiltered = this.songsListSource.filter(song => {
       const titleMatch = song.title.toLowerCase().includes(this.searchTerm.toLowerCase());
+      const urlMatch = song.url.toLowerCase().includes(this.searchTerm.toLowerCase());
       const tagsMatch = song.categories.some(tag => tag.toLowerCase().includes(this.searchTerm.toLowerCase()));
-      return titleMatch || tagsMatch;
+      return titleMatch || tagsMatch || urlMatch;
     });
 
     /* Remove inactive songs (if client) */
